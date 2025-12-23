@@ -59,9 +59,9 @@ upgrade-safe:
 	flutter pub upgrade
 	@echo "✅ Safe upgrade completed - no breaking changes expected"
 
-# Format code (fail if changes needed)
+# Format code
 format:
-	dart format --output=none --set-exit-if-changed .
+	dart format .
 
 # Analyze code (fatal warnings)
 analyze:
