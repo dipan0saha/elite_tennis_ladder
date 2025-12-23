@@ -740,7 +740,7 @@ class ChallengePlayerScreen extends StatefulWidget {
 class _ChallengePlayerScreenState extends State<ChallengePlayerScreen> {
   final _supabase = Supabase.instance.client;
   DateTime _selectedDate = DateTime.now().add(const Duration(days: 1));
-  TimeOfDay _selectedTime = const TimeOfDay(hour: 10, hour: 0);
+  TimeOfDay _selectedTime = const TimeOfDay(hour: 10, minute: 0);
   final _locationController = TextEditingController();
   final _notesController = TextEditingController();
   bool _isSubmitting = false;

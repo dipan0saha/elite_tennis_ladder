@@ -26,7 +26,7 @@ Flutter + Supabase provides enterprise-grade security with minimal configuration
 ✅ **Password Requirements**
 ```dart
 // Supabase enforces:
-- Minimum 6 characters (configurable to 12+)
+- Minimum 12 characters (strong password required)
 - No common passwords (dictionary check)
 - No leaked passwords (Have I Been Pwned check)
 - Bcrypt hashing with salt

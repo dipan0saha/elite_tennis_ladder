@@ -224,7 +224,7 @@ class LiveLadderWidget extends StatelessWidget {
     return StreamBuilder<List<PlayerRanking>>(
       stream: supabase
         .from('player_rankings')
-        .stream(primaryKey: ['rank'])
+        .stream(primaryKey: ['id'])
         .order('rank'),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
