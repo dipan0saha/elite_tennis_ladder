@@ -6,6 +6,10 @@
 **Status:** Approved  
 **Last Updated:** December 20, 2025
 
+**Design Reference:** This wireframe follows the Elite Tennis Ladder Design System. For complete specifications, see:
+- Design System: [`docs/design/DESIGN_SYSTEM.md`](../DESIGN_SYSTEM.md)
+- UI Mockups: [`docs/design/UI_MOCKUPS.md`](../UI_MOCKUPS.md)
+
 ---
 
 ## Overview
@@ -46,7 +50,7 @@ The Challenge Creation screen allows users to select an opponent and send a matc
 │  ┌───────────────────────────┐  │
 │  │ #6  👤 Sarah Mitchell  ✓  │  │ ← Selected player
 │  │  🥈  12-4  75% Win        │  │   Background: #E3F2FD
-│  │  Last active: 1 day ago   │  │   Border: #1E88E5, 2px
+│  │  Last active: 1 day ago   │  │   Border: #2E7D32 (Tennis Green Primary), 2px
 │  │       [ SELECTED ]         │  │
 │  └───────────────────────────┘  │
 │                                 │
@@ -262,7 +266,7 @@ The Challenge Creation screen allows users to select an opponent and send a matc
 - Text: "Last active: 2 hours ago"
 - Typography: Caption, 11px, Regular, #757575
 - Colors:
-  - Green (#43A047): Active today
+  - Green (#4CAF50): Active today
   - Orange (#FFA726): Active this week
   - Gray (#9E9E9E): Active longer ago
 
@@ -270,8 +274,8 @@ The Challenge Creation screen allows users to select an opponent and send a matc
 - Label: "SELECT"
 - Size: 80px × 28px
 - Background: White
-- Border: 1px solid #1E88E5
-- Text: #1E88E5, 12px, SemiBold
+- Border: 1px solid #2E7D32 (Tennis Green Primary)
+- Text: #2E7D32 (Tennis Green Primary), 12px, SemiBold
 - Border Radius: 14px
 - Position: Bottom right
 
@@ -284,7 +288,7 @@ The Challenge Creation screen allows users to select an opponent and send a matc
 
 **Same as unselected, but:**
 - Background: #E3F2FD (light blue)
-- Border: 2px solid #1E88E5 (blue)
+- Border: 2px solid #2E7D32 (Tennis Green Primary)
 - Checkmark: ✓ icon in top right corner
 - Button: "SELECTED" with solid blue background
 
@@ -429,7 +433,7 @@ The Challenge Creation screen allows users to select an opponent and send a matc
 **States:**
 
 **Enabled (Player Selected):**
-- Background: #1E88E5 (blue)
+- Background: #2E7D32 (Tennis Green Primary)
 - Text: "SEND CHALLENGE", white, 16px, SemiBold
 - Border Radius: 24px
 - Shadow: 0px 2px 4px rgba(0,0,0,0.2)
@@ -441,7 +445,7 @@ The Challenge Creation screen allows users to select an opponent and send a matc
 - Not interactive
 
 **Loading:**
-- Background: #1E88E5
+- Background: #2E7D32 (Tennis Green Primary)
 - Text: "SENDING..."
 - Spinner animation
 - Disabled

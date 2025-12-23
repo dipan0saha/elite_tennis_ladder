@@ -475,24 +475,55 @@ All wireframes are designed to meet WCAG 2.1 Level AA standards:
 
 ## 6. Design System
 
+**Note:** The wireframes follow the Elite Tennis Ladder Design System specifications. For complete design details, see:
+- Full Design System: [`docs/design/DESIGN_SYSTEM.md`](../DESIGN_SYSTEM.md)
+- UI Mockups: [`docs/design/UI_MOCKUPS.md`](../UI_MOCKUPS.md)
+- Theme Implementation: [`lib/theme/app_theme.dart`](../../lib/theme/app_theme.dart) and [`lib/theme/app_colors.dart`](../../lib/theme/app_colors.dart)
+
 ### 6.1 Color Palette
 
+**Note:** This color palette aligns with the Elite Tennis Ladder Design System (`docs/design/DESIGN_SYSTEM.md`)
+
 **Primary Colors:**
-- **Primary:** `#1E88E5` (Blue) - Main actions, primary buttons
-- **Secondary:** `#43A047` (Green) - Success states, confirmations
-- **Accent:** `#FFA726` (Orange) - Highlights, notifications
+- **Primary (Tennis Green):** `#2E7D32` - Main actions, primary buttons, brand identity
+- **Primary Dark:** `#1B5E20` - Primary button hover/active states
+- **Primary Light:** `#4CAF50` - Primary highlights
+- **Primary Lighter:** `#81C784` - Light accents, dark mode primary
+
+**Secondary Colors:**
+- **Secondary (Court Blue):** `#1976D2` - Secondary actions, links, accents
+- **Secondary Dark:** `#0D47A1` - Secondary button hover/active states
+- **Secondary Light:** `#42A5F5` - Secondary highlights
+- **Secondary Lighter:** `#90CAF9` - Light accents, dark mode secondary
 
 **Neutral Colors:**
-- **Dark:** `#212121` - Primary text
-- **Medium:** `#757575` - Secondary text
+- **Dark:** `#212121` - Primary text (light mode)
+- **Medium:** `#757575` - Secondary text (light mode)
 - **Light:** `#BDBDBD` - Dividers, disabled states
-- **Background:** `#FAFAFA` - Main background
+- **Background:** `#FFFFFF` - Main background (light mode)
+- **Background Secondary:** `#F5F5F5` - Secondary background (light mode)
+
+**Dark Mode Colors:**
+- **Background:** `#121212` - Main background (dark mode)
+- **Background Secondary:** `#1E1E1E` - Surface/card background (dark mode)
+- **Background Tertiary:** `#2C2C2C` - Elevated surfaces (dark mode)
+- **Border:** `#3A3A3A` - Borders (dark mode)
+- **Text Primary:** `#E0E0E0` - Primary text (dark mode)
+- **Text Secondary:** `#B0B0B0` - Secondary text (dark mode)
 
 **Semantic Colors:**
-- **Success:** `#4CAF50` (Green)
-- **Warning:** `#FF9800` (Orange)
-- **Error:** `#F44336` (Red)
-- **Info:** `#2196F3` (Blue)
+- **Success:** `#4CAF50` (Green) - Success states, confirmations
+- **Success Dark:** `#2E7D32`
+- **Success Light:** `#81C784`
+- **Warning:** `#FF9800` (Orange) - Warning states, alerts
+- **Warning Dark:** `#F57C00`
+- **Warning Light:** `#FFB74D`
+- **Error:** `#F44336` (Red) - Error states, destructive actions
+- **Error Dark:** `#C62828`
+- **Error Light:** `#E57373`
+- **Info:** `#2196F3` (Blue) - Informational messages
+- **Info Dark:** `#1976D2`
+- **Info Light:** `#64B5F6`
 
 **Contrast Ratios:**
 - Primary text on background: 16.1:1 (AAA)

@@ -6,6 +6,10 @@
 **Status:** Approved  
 **Last Updated:** December 20, 2025
 
+**Design Reference:** This wireframe follows the Elite Tennis Ladder Design System. For complete specifications, see:
+- Design System: [`docs/design/DESIGN_SYSTEM.md`](../DESIGN_SYSTEM.md)
+- UI Mockups: [`docs/design/UI_MOCKUPS.md`](../UI_MOCKUPS.md)
+
 ---
 
 ## Overview
@@ -128,7 +132,7 @@ The Profile Screen displays comprehensive user information, statistics, match hi
 ### 2. Profile Header Section
 
 **Height:** 280px  
-**Background:** Linear gradient (#1E88E5 to #1565C0) or custom  
+**Background:** Linear gradient (#2E7D32 to #1B5E20) or custom  
 **Padding:** 24px
 
 **Profile Photo:**
@@ -169,7 +173,7 @@ The Profile Screen displays comprehensive user information, statistics, match hi
 - Label: "✏️ Edit Profile"
 - Size: 140px × 36px
 - Background: White (80% opacity)
-- Text: #1E88E5, 14px, SemiBold
+- Text: #2E7D32 (Tennis Green Primary), 14px, SemiBold
 - Border Radius: 18px
 - Position: Below rank change, 16px spacing
 - Alignment: Centered
@@ -203,7 +207,7 @@ The Profile Screen displays comprehensive user information, statistics, match hi
 **1. Wins:**
 - Value: "7"
 - Label: "WINS"
-- Color: #43A047 (green)
+- Color: #4CAF50 (success green)
 
 **2. Losses:**
 - Value: "4"
@@ -213,7 +217,7 @@ The Profile Screen displays comprehensive user information, statistics, match hi
 **3. Win Percentage:**
 - Value: "64%"
 - Label: "WIN %"
-- Color: #1E88E5 (blue)
+- Color: #1976D2 (Court Blue Secondary)
 
 **4. Current Streak:**
 - Value: "3" or "W3" / "L2"
@@ -255,9 +259,9 @@ The Profile Screen displays comprehensive user information, statistics, match hi
 - No underline
 
 **Selected:**
-- Text: #1E88E5 (blue)
+- Text: #2E7D32 (Tennis Green Primary)
 - Typography: Body, 14px, Bold
-- Underline: 2px solid #1E88E5
+- Underline: 2px solid #2E7D32 (Tennis Green Primary)
 - Animation: Slide from previous tab
 
 **Layout:**

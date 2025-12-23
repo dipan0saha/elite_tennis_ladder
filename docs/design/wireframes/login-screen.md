@@ -6,6 +6,10 @@
 **Status:** Approved  
 **Last Updated:** December 20, 2025
 
+**Design Reference:** This wireframe follows the Elite Tennis Ladder Design System. For complete specifications, see:
+- Design System: [`docs/design/DESIGN_SYSTEM.md`](../DESIGN_SYSTEM.md)
+- UI Mockups: [`docs/design/UI_MOCKUPS.md`](../UI_MOCKUPS.md)
+
 ---
 
 ## Overview
@@ -108,7 +112,7 @@ The Login Screen is the entry point for returning users to access the Elite Tenn
 
 **States:**
 - **Default:** Border #BDBDBD, 1px
-- **Focus:** Border #1E88E5, 2px
+- **Focus:** Border #2E7D32 (Tennis Green Primary), 2px
 - **Error:** Border #F44336, 2px, error message below
 - **Success:** Border #4CAF50, 2px
 
@@ -142,7 +146,7 @@ The Login Screen is the entry point for returning users to access the Elite Tenn
 
 **States:**
 - **Default:** Border #BDBDBD, 1px
-- **Focus:** Border #1E88E5, 2px
+- **Focus:** Border #2E7D32 (Tennis Green Primary), 2px
 - **Error:** Border #F44336, 2px, error message below
 
 **Error Messages:**
@@ -171,8 +175,8 @@ The Login Screen is the entry point for returning users to access the Elite Tenn
 
 **States:**
 - **Unchecked:** Border #BDBDBD, 2px
-- **Checked:** Background #1E88E5, white checkmark
-- **Focus:** Border #1E88E5, 2px outline
+- **Checked:** Background #2E7D32 (Tennis Green Primary), white checkmark
+- **Focus:** Border #2E7D32 (Tennis Green Primary), 2px outline
 
 **Behavior:**
 - Default: Unchecked
@@ -195,16 +199,16 @@ The Login Screen is the entry point for returning users to access the Elite Tenn
 
 **States:**
 - **Default:**
-  - Background: #1E88E5
+  - Background: #2E7D32 (Tennis Green Primary)
   - Text: White, 16px, SemiBold
   - Border radius: 8px
-- **Hover/Focus:** Background: #1976D2 (darker)
+- **Hover/Focus:** Background: #1B5E20 (Tennis Green Primary Dark)
 - **Active/Pressed:**
-  - Background: #1565C0
+  - Background: #1B5E20 (Tennis Green Primary Dark)
   - Scale: 0.98
   - Duration: 100ms
 - **Loading:**
-  - Background: #1E88E5
+  - Background: #2E7D32 (Tennis Green Primary)
   - Text: "Logging in..."
   - Spinner animation
   - Disabled state
@@ -239,7 +243,7 @@ The Login Screen is the entry point for returning users to access the Elite Tenn
 **Label:** "Forgot Password?"  
 **Type:** Text link  
 **Size:** 16px, Regular  
-**Color:** #1E88E5  
+**Color:** #2E7D32 (Tennis Green Primary)  
 **Position:** Centered, 16px below login button
 
 **Behavior:**
@@ -248,8 +252,8 @@ The Login Screen is the entry point for returning users to access the Elite Tenn
 - Shows confirmation message
 
 **States:**
-- **Default:** #1E88E5
-- **Active:** #1565C0, underline
+- **Default:** #2E7D32 (Tennis Green Primary)
+- **Active:** #1B5E20 (Tennis Green Primary Dark), underline
 
 **Accessibility:**
 - Label: "Forgot password? Tap to reset"
@@ -294,7 +298,7 @@ The Login Screen is the entry point for returning users to access the Elite Tenn
 
 **Typography:**
 - Question: Body Small, 14px, #757575
-- Link: 16px, SemiBold, #1E88E5
+- Link: 16px, SemiBold, #2E7D32 (Tennis Green Primary)
 
 **Behavior:**
 - Tap "Sign Up": Navigate to registration screen

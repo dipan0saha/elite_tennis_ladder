@@ -6,6 +6,10 @@
 **Status:** Approved  
 **Last Updated:** December 20, 2025
 
+**Design Reference:** This wireframe follows the Elite Tennis Ladder Design System. For complete specifications, see:
+- Design System: [`docs/design/DESIGN_SYSTEM.md`](../DESIGN_SYSTEM.md)
+- UI Mockups: [`docs/design/UI_MOCKUPS.md`](../UI_MOCKUPS.md)
+
 ---
 
 ## Overview
@@ -140,7 +144,7 @@ The Ladder View is the primary screen of the Elite Tennis Ladder application. It
 **Position:** Sticky below header  
 **Height:** 56px  
 **Background:** Light blue (#E3F2FD)  
-**Border:** 1px solid #1E88E5  
+**Border:** 1px solid #2E7D32 (Tennis Green Primary)  
 **Border Radius:** 8px  
 **Padding:** 12px  
 **Margin:** 16px (sides)
@@ -152,7 +156,7 @@ The Ladder View is the primary screen of the Elite Tennis Ladder application. It
 - Text Line 1: "Your Ranking: #8"
   - Typography: Body, 16px, SemiBold, #212121
 - Text Line 2: "⬆️ Up 2 spots this week"
-  - Typography: Caption, 12px, Regular, #43A047 (green)
+  - Typography: Caption, 12px, Regular, #4CAF50 (success green)
   - Conditional: "⬇️ Down X spots" (red), "→ No change" (gray)
 
 **Right Section:**
@@ -196,7 +200,7 @@ The Ladder View is the primary screen of the Elite Tennis Ladder application. It
 - Division filter: "Division: All ▼"
 - Status filter: "Active only" (toggle)
 - Height: 32px each
-- Background: #E0E0E0 (inactive), #1E88E5 (active)
+- Background: #E0E0E0 (inactive), #2E7D32 (Tennis Green Primary - active)
 - Border Radius: 16px
 
 **Filter Options (Bottom Sheet):**
@@ -269,7 +273,7 @@ The Ladder View is the primary screen of the Elite Tennis Ladder application. It
 **Avatar:**
 - Size: 40px × 40px
 - Shape: Circle
-- Border: 2px solid #1E88E5
+- Border: 2px solid #2E7D32 (Tennis Green Primary)
 - Placeholder: Initials if no photo
 - Position: Next to rank
 
@@ -292,7 +296,7 @@ The Ladder View is the primary screen of the Elite Tennis Ladder application. It
 **Challenge Button:**
 - Label: "CHALLENGE"
 - Size: 100px × 32px
-- Background: #1E88E5
+- Background: #2E7D32 (Tennis Green Primary)
 - Text: White, 12px, SemiBold
 - Border Radius: 16px
 - Position: Right side, centered vertically
@@ -356,7 +360,7 @@ The Ladder View is the primary screen of the Elite Tennis Ladder application. It
 
 **Position:** Bottom right, 16px from bottom nav, 16px from right  
 **Size:** 56px × 56px  
-**Background:** #43A047 (green)  
+**Background:** #4CAF50 (success green)  
 **Icon:** + (plus sign), white, 24px  
 **Shadow:** 0px 4px 12px rgba(0,0,0,0.3)  
 **Shape:** Circle
@@ -400,7 +404,7 @@ The Ladder View is the primary screen of the Elite Tennis Ladder application. It
 - Icon size: 24px × 24px
 - Label: 10px, Regular
 - Tap target: Full width divided by 5 items
-- Active color: #1E88E5 (blue)
+- Active color: #2E7D32 (Tennis Green Primary)
 - Inactive color: #757575 (gray)
 - Animation: Icon scale + color fade on tap
 
