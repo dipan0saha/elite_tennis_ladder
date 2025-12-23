@@ -39,6 +39,11 @@ class ProfileService {
     return getProfile(userId);
   }
 
+  /// Alias for getProfile for clarity in code
+  Future<UserProfile?> getProfileById(String userId) async {
+    return getProfile(userId);
+  }
+
   /// Update user profile
   /// Returns the updated profile
   /// Note: Pass empty string to clear optional fields (phone, bio)

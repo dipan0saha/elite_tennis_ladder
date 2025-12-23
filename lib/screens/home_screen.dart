@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 import 'profile_screen.dart';
+import 'ladder_list_screen.dart';
+import 'challenges_list_screen.dart';
 
 /// Home screen shown after successful authentication
 class HomeScreen extends StatelessWidget {
@@ -15,6 +17,18 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Elite Tennis Ladder'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.emoji_events),
+            tooltip: 'Challenges',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ChallengesListScreen(),
+                ),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.person),
             tooltip: 'Profile',
@@ -68,15 +82,34 @@ class HomeScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        'You are now logged in!',
-                        style: Theme.of(context).textTheme.titleMedium,
+                        'Elite Tennis Ladder',
+                        style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 12),
                       Text(
-                        'This is a placeholder home screen. The tennis ladder features will be implemented in future sprints.',
+                        'Join ladders, challenge players, and climb the rankings!',
                         style: Theme.of(context).textTheme.bodyMedium,
                         textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 24),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LadderListScreen(),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.emoji_events),
+                        label: const Text('Browse Ladders'),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24.0,
+                            vertical: 12.0,
+                          ),
+                        ),
                       ),
                     ],
                   ),
