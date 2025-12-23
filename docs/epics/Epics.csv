@@ -34,3 +34,4 @@
 "12","Deployment & Launch","Deploy to app stores and web.","12.1","Mobile App Deployment","As a developer, I want to build and deploy to Google Play and App Store.","deployment",
 "12","Deployment & Launch","Deploy to app stores and web.","12.2","Web Deployment","As a developer, I want to deploy the web version to GitHub Pages or Vercel.","deployment",
 "12","Deployment & Launch","Deploy to app stores and web.","12.3","Post-Launch Monitoring","As a team, I want to monitor usage, feedback, and fix issues.","deployment"
+"13","Monetization & Premium Features","Implement revenue-generating features and premium user options.","13.1","Player-Created Ladders","As a premium user, I want to create my own custom ladder tournament for an additional fee so that I can organize competitions among my friends or community with the same ranking and challenge system as official ladders.","premium",
