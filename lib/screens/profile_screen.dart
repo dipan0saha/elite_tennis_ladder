@@ -256,7 +256,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                     // Skill level dropdown
                     DropdownButtonFormField<String>(
-                      value: _selectedSkillLevel,
+                      initialValue: _selectedSkillLevel,
                       decoration: const InputDecoration(
                         labelText: 'Skill Level',
                         prefixIcon: Icon(Icons.sports_tennis),

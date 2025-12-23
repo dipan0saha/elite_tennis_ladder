@@ -4,7 +4,7 @@ import 'package:elite_tennis_ladder/models/user_profile.dart';
 void main() {
   group('UserProfile', () {
     final testDateTime = DateTime.parse('2025-01-01T00:00:00.000Z');
-    
+
     test('should create UserProfile from JSON with all fields', () {
       final json = {
         'id': '123e4567-e89b-12d3-a456-426614174000',
@@ -194,7 +194,7 @@ void main() {
 
     test('should handle all skill level values', () {
       final skillLevels = ['beginner', 'intermediate', 'advanced', 'expert'];
-      
+
       for (final level in skillLevels) {
         final json = {
           'id': '123e4567-e89b-12d3-a456-426614174000',
@@ -214,7 +214,7 @@ void main() {
 
     test('should handle all availability status values', () {
       final statuses = ['active', 'vacation', 'injured', 'inactive'];
-      
+
       for (final status in statuses) {
         final json = {
           'id': '123e4567-e89b-12d3-a456-426614174000',
@@ -257,7 +257,8 @@ void main() {
       expect(reconstructedProfile.avatarUrl, originalProfile.avatarUrl);
       expect(reconstructedProfile.bio, originalProfile.bio);
       expect(reconstructedProfile.skillLevel, originalProfile.skillLevel);
-      expect(reconstructedProfile.availabilityStatus, originalProfile.availabilityStatus);
+      expect(reconstructedProfile.availabilityStatus,
+          originalProfile.availabilityStatus);
       expect(reconstructedProfile.createdAt, originalProfile.createdAt);
       expect(reconstructedProfile.updatedAt, originalProfile.updatedAt);
     });

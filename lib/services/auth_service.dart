@@ -29,7 +29,7 @@ class AuthService {
     } on AuthException catch (e) {
       throw AuthException(e.message);
     } catch (e) {
-      throw AuthException('An unexpected error occurred during signup');
+      throw const AuthException('An unexpected error occurred during signup');
     }
   }
 
@@ -48,7 +48,7 @@ class AuthService {
     } on AuthException catch (e) {
       throw AuthException(e.message);
     } catch (e) {
-      throw AuthException('An unexpected error occurred during login');
+      throw const AuthException('An unexpected error occurred during login');
     }
   }
 
@@ -62,7 +62,8 @@ class AuthService {
     } on AuthException catch (e) {
       throw AuthException(e.message);
     } catch (e) {
-      throw AuthException('An unexpected error occurred during password reset');
+      throw const AuthException(
+          'An unexpected error occurred during password reset');
     }
   }
 
@@ -74,7 +75,7 @@ class AuthService {
     } on AuthException catch (e) {
       throw AuthException(e.message);
     } catch (e) {
-      throw AuthException('An unexpected error occurred during sign out');
+      throw const AuthException('An unexpected error occurred during sign out');
     }
   }
 }

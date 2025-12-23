@@ -9,14 +9,45 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('Authentication Flow Integration Tests', () {
+    late final String _supabaseUrl;
+    late final String _supabaseAnonKey;
+    late final String _testEmail;
+    late final String _testPassword;
+
     setUpAll(() async {
       // Load environment variables
       await dotenv.load(fileName: '.env');
 
+      _supabaseUrl = dotenv.env['SUPABASE_URL'] ?? '';
+      _supabaseAnonKey = dotenv.env['SUPABASE_ANON_KEY'] ?? '';
+      _testEmail = dotenv.env['TEST_USER_EMAIL'] ?? '';
+      _testPassword = dotenv.env['TEST_USER_PASSWORD'] ?? '';
+
+      expect(
+        _supabaseUrl,
+        isNotEmpty,
+        reason: 'Set SUPABASE_URL in .env to run integration tests.',
+      );
+      expect(
+        _supabaseAnonKey,
+        isNotEmpty,
+        reason: 'Set SUPABASE_ANON_KEY in .env to run integration tests.',
+      );
+      expect(
+        _testEmail,
+        isNotEmpty,
+        reason: 'Set TEST_USER_EMAIL in .env to run integration tests.',
+      );
+      expect(
+        _testPassword,
+        isNotEmpty,
+        reason: 'Set TEST_USER_PASSWORD in .env to run integration tests.',
+      );
+
       // Initialize Supabase
       await Supabase.initialize(
-        url: dotenv.env['SUPABASE_URL'] ?? '',
-        anonKey: dotenv.env['SUPABASE_ANON_KEY'] ?? '',
+        url: _supabaseUrl,
+        anonKey: _supabaseAnonKey,
       );
     });
 
@@ -47,9 +78,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // Enter valid credentials
-      await tester.enterText(
-          find.byType(TextFormField).at(0), 'test@gmail.com');
-      await tester.enterText(find.byType(TextFormField).at(1), 'password');
+      await tester.enterText(find.byType(TextFormField).at(0), _testEmail);
+      await tester.enterText(find.byType(TextFormField).at(1), _testPassword);
       await tester.pumpAndSettle();
 
       // Tap login button

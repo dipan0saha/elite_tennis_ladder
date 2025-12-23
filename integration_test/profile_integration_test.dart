@@ -9,14 +9,45 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('Profile Screen Integration Tests', () {
+    late final String _supabaseUrl;
+    late final String _supabaseAnonKey;
+    late final String _testEmail;
+    late final String _testPassword;
+
     setUpAll(() async {
       // Load environment variables
       await dotenv.load(fileName: '.env');
 
+      _supabaseUrl = dotenv.env['SUPABASE_URL'] ?? '';
+      _supabaseAnonKey = dotenv.env['SUPABASE_ANON_KEY'] ?? '';
+      _testEmail = dotenv.env['TEST_USER_EMAIL'] ?? '';
+      _testPassword = dotenv.env['TEST_USER_PASSWORD'] ?? '';
+
+      expect(
+        _supabaseUrl,
+        isNotEmpty,
+        reason: 'Set SUPABASE_URL in .env to run integration tests.',
+      );
+      expect(
+        _supabaseAnonKey,
+        isNotEmpty,
+        reason: 'Set SUPABASE_ANON_KEY in .env to run integration tests.',
+      );
+      expect(
+        _testEmail,
+        isNotEmpty,
+        reason: 'Set TEST_USER_EMAIL in .env to run integration tests.',
+      );
+      expect(
+        _testPassword,
+        isNotEmpty,
+        reason: 'Set TEST_USER_PASSWORD in .env to run integration tests.',
+      );
+
       // Initialize Supabase
       await Supabase.initialize(
-        url: dotenv.env['SUPABASE_URL'] ?? '',
-        anonKey: dotenv.env['SUPABASE_ANON_KEY'] ?? '',
+        url: _supabaseUrl,
+        anonKey: _supabaseAnonKey,
       );
     });
 
@@ -30,7 +61,7 @@ void main() {
       await Future.delayed(const Duration(milliseconds: 500));
     });
 
-    tearDown() async {
+    tearDown(() async {
       // Sign out after each test
       try {
         await Supabase.instance.client.auth.signOut();
@@ -40,15 +71,15 @@ void main() {
       await Future.delayed(const Duration(milliseconds: 500));
     });
 
-    testWidgets('Complete profile flow: login, navigate to profile, view profile',
+    testWidgets(
+        'Complete profile flow: login, navigate to profile, view profile',
         (WidgetTester tester) async {
       await tester.pumpWidget(const MyApp());
       await tester.pumpAndSettle();
 
       // Step 1: Login
-      await tester.enterText(
-          find.byType(TextFormField).at(0), 'test@gmail.com');
-      await tester.enterText(find.byType(TextFormField).at(1), 'password');
+      await tester.enterText(find.byType(TextFormField).at(0), _testEmail);
+      await tester.enterText(find.byType(TextFormField).at(1), _testPassword);
       await tester.pumpAndSettle();
 
       await tester.tap(find.widgetWithText(ElevatedButton, 'Login'));
@@ -60,7 +91,7 @@ void main() {
       // Step 2: Navigate to profile
       final profileButton = find.byIcon(Icons.person);
       expect(profileButton, findsOneWidget);
-      
+
       await tester.tap(profileButton);
       await tester.pumpAndSettle(const Duration(seconds: 2));
 
@@ -75,9 +106,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // Login
-      await tester.enterText(
-          find.byType(TextFormField).at(0), 'test@gmail.com');
-      await tester.enterText(find.byType(TextFormField).at(1), 'password');
+      await tester.enterText(find.byType(TextFormField).at(0), _testEmail);
+      await tester.enterText(find.byType(TextFormField).at(1), _testPassword);
       await tester.pumpAndSettle();
 
       await tester.tap(find.widgetWithText(ElevatedButton, 'Login'));
@@ -101,9 +131,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // Login
-      await tester.enterText(
-          find.byType(TextFormField).at(0), 'test@gmail.com');
-      await tester.enterText(find.byType(TextFormField).at(1), 'password');
+      await tester.enterText(find.byType(TextFormField).at(0), _testEmail);
+      await tester.enterText(find.byType(TextFormField).at(1), _testPassword);
       await tester.pumpAndSettle();
 
       await tester.tap(find.widgetWithText(ElevatedButton, 'Login'));
@@ -120,15 +149,13 @@ void main() {
       expect(find.byType(ElevatedButton), findsWidgets);
     });
 
-    testWidgets('Can edit full name field',
-        (WidgetTester tester) async {
+    testWidgets('Can edit full name field', (WidgetTester tester) async {
       await tester.pumpWidget(const MyApp());
       await tester.pumpAndSettle();
 
       // Login
-      await tester.enterText(
-          find.byType(TextFormField).at(0), 'test@gmail.com');
-      await tester.enterText(find.byType(TextFormField).at(1), 'password');
+      await tester.enterText(find.byType(TextFormField).at(0), _testEmail);
+      await tester.enterText(find.byType(TextFormField).at(1), _testPassword);
       await tester.pumpAndSettle();
 
       await tester.tap(find.widgetWithText(ElevatedButton, 'Login'));
@@ -147,15 +174,13 @@ void main() {
       expect(find.text('Test User Updated'), findsOneWidget);
     });
 
-    testWidgets('Can edit bio field',
-        (WidgetTester tester) async {
+    testWidgets('Can edit bio field', (WidgetTester tester) async {
       await tester.pumpWidget(const MyApp());
       await tester.pumpAndSettle();
 
       // Login
-      await tester.enterText(
-          find.byType(TextFormField).at(0), 'test@gmail.com');
-      await tester.enterText(find.byType(TextFormField).at(1), 'password');
+      await tester.enterText(find.byType(TextFormField).at(0), _testEmail);
+      await tester.enterText(find.byType(TextFormField).at(1), _testPassword);
       await tester.pumpAndSettle();
 
       await tester.tap(find.widgetWithText(ElevatedButton, 'Login'));
@@ -166,13 +191,18 @@ void main() {
       await tester.pumpAndSettle(const Duration(seconds: 3));
 
       // Find bio field (multiline text field)
-      final textFields = find.byType(TextFormField);
-      if (textFields.evaluate().length > 2) {
-        await tester.enterText(textFields.at(2), 'I love playing tennis!');
-        await tester.pumpAndSettle();
+      final bioField = find.ancestor(
+        of: find.text('Bio'),
+        matching: find.byType(TextFormField),
+      );
+      expect(bioField, findsOneWidget);
 
-        expect(find.text('I love playing tennis!'), findsOneWidget);
-      }
+      await tester.ensureVisible(bioField);
+      await tester.enterText(bioField, 'I love playing tennis!');
+      await tester.pumpAndSettle();
+
+      final bioWidget = tester.widget<TextFormField>(bioField);
+      expect(bioWidget.controller?.text, 'I love playing tennis!');
     });
 
     testWidgets('Save button exists and is tappable',
@@ -181,9 +211,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // Login
-      await tester.enterText(
-          find.byType(TextFormField).at(0), 'test@gmail.com');
-      await tester.enterText(find.byType(TextFormField).at(1), 'password');
+      await tester.enterText(find.byType(TextFormField).at(0), _testEmail);
+      await tester.enterText(find.byType(TextFormField).at(1), _testPassword);
       await tester.pumpAndSettle();
 
       await tester.tap(find.widgetWithText(ElevatedButton, 'Login'));
@@ -202,15 +231,13 @@ void main() {
       expect(elevatedButton.onPressed, isNotNull);
     });
 
-    testWidgets('AppBar save icon exists',
-        (WidgetTester tester) async {
+    testWidgets('AppBar save icon exists', (WidgetTester tester) async {
       await tester.pumpWidget(const MyApp());
       await tester.pumpAndSettle();
 
       // Login
-      await tester.enterText(
-          find.byType(TextFormField).at(0), 'test@gmail.com');
-      await tester.enterText(find.byType(TextFormField).at(1), 'password');
+      await tester.enterText(find.byType(TextFormField).at(0), _testEmail);
+      await tester.enterText(find.byType(TextFormField).at(1), _testPassword);
       await tester.pumpAndSettle();
 
       await tester.tap(find.widgetWithText(ElevatedButton, 'Login'));
@@ -230,9 +257,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // Login
-      await tester.enterText(
-          find.byType(TextFormField).at(0), 'test@gmail.com');
-      await tester.enterText(find.byType(TextFormField).at(1), 'password');
+      await tester.enterText(find.byType(TextFormField).at(0), _testEmail);
+      await tester.enterText(find.byType(TextFormField).at(1), _testPassword);
       await tester.pumpAndSettle();
 
       await tester.tap(find.widgetWithText(ElevatedButton, 'Login'));
@@ -259,9 +285,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // Login
-      await tester.enterText(
-          find.byType(TextFormField).at(0), 'test@gmail.com');
-      await tester.enterText(find.byType(TextFormField).at(1), 'password');
+      await tester.enterText(find.byType(TextFormField).at(0), _testEmail);
+      await tester.enterText(find.byType(TextFormField).at(1), _testPassword);
       await tester.pumpAndSettle();
 
       await tester.tap(find.widgetWithText(ElevatedButton, 'Login'));
@@ -282,9 +307,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // Login
-      await tester.enterText(
-          find.byType(TextFormField).at(0), 'test@gmail.com');
-      await tester.enterText(find.byType(TextFormField).at(1), 'password');
+      await tester.enterText(find.byType(TextFormField).at(0), _testEmail);
+      await tester.enterText(find.byType(TextFormField).at(1), _testPassword);
       await tester.pumpAndSettle();
 
       await tester.tap(find.widgetWithText(ElevatedButton, 'Login'));
@@ -315,9 +339,8 @@ void main() {
       await tester.pumpAndSettle();
 
       // Login
-      await tester.enterText(
-          find.byType(TextFormField).at(0), 'test@gmail.com');
-      await tester.enterText(find.byType(TextFormField).at(1), 'password');
+      await tester.enterText(find.byType(TextFormField).at(0), _testEmail);
+      await tester.enterText(find.byType(TextFormField).at(1), _testPassword);
       await tester.pumpAndSettle();
 
       await tester.tap(find.widgetWithText(ElevatedButton, 'Login'));
@@ -341,8 +364,7 @@ void main() {
       // The exact error message would depend on implementation
     });
 
-    testWidgets('Can scroll through profile form',
-        (WidgetTester tester) async {
+    testWidgets('Can scroll through profile form', (WidgetTester tester) async {
       await tester.pumpWidget(const MyApp());
       await tester.pumpAndSettle();
 

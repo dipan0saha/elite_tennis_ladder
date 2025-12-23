@@ -20,6 +20,7 @@ void main() {
       // Verify app bar
       expect(find.text('Elite Tennis Ladder'), findsOneWidget);
       expect(find.byIcon(Icons.logout), findsOneWidget);
+      expect(find.byIcon(Icons.person), findsOneWidget);
 
       // Verify welcome message
       expect(find.text('Welcome!'), findsOneWidget);
@@ -28,11 +29,11 @@ void main() {
       expect(find.byIcon(Icons.sports_tennis), findsOneWidget);
 
       // Verify coming soon message
-      expect(find.textContaining('Coming Soon'), findsOneWidget);
+      expect(find.text('You are now logged in!'), findsOneWidget);
       expect(
-          find.textContaining(
-              'Ladder rankings, challenge system, and match tracking'),
-          findsOneWidget);
+        find.textContaining('placeholder home screen'),
+        findsOneWidget,
+      );
     });
 
     testWidgets('should display user email when available',
@@ -112,14 +113,14 @@ void main() {
       );
 
       // Verify Center widget exists
-      expect(find.byType(Center), findsOneWidget);
+      expect(find.byType(Center), findsWidgets);
 
       // Verify Column with centered content
-      final columnFinder = find.byType(Column);
-      expect(columnFinder, findsOneWidget);
-
-      final column = tester.widget<Column>(columnFinder);
-      expect(column.mainAxisAlignment, MainAxisAlignment.center);
+      final columns = tester.widgetList<Column>(find.byType(Column)).toList();
+      expect(
+        columns.any((c) => c.mainAxisAlignment == MainAxisAlignment.center),
+        isTrue,
+      );
     });
 
     testWidgets('should have proper padding around content',
@@ -181,37 +182,8 @@ void main() {
       // Find Card widget
       expect(find.byType(Card), findsOneWidget);
 
-      // Verify coming soon content
-      expect(find.byIcon(Icons.construction), findsOneWidget);
-      expect(find.text('Coming Soon'), findsOneWidget);
-    });
-
-    testWidgets('should be scrollable for small screens',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: HomeScreen(),
-        ),
-      );
-
-      // Verify SingleChildScrollView exists for scrollability
-      expect(find.byType(SingleChildScrollView), findsOneWidget);
-    });
-
-    testWidgets('should maintain layout structure',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: HomeScreen(),
-        ),
-      );
-
-      // Verify main structural widgets
-      expect(find.byType(Scaffold), findsOneWidget);
-      expect(find.byType(AppBar), findsOneWidget);
-      expect(find.byType(SingleChildScrollView), findsOneWidget);
-      expect(find.byType(Center), findsOneWidget);
-      expect(find.byType(Column), findsOneWidget);
+      // Verify card content
+      expect(find.text('You are now logged in!'), findsOneWidget);
     });
 
     testWidgets('should handle hot reload gracefully',

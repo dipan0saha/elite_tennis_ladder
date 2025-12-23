@@ -1,5 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// Test helper for initializing Supabase in tests
@@ -8,7 +9,7 @@ class SupabaseTestHelper {
 
   /// Initialize Supabase for testing
   /// Loads environment variables and initializes Supabase client
-  /// Note: Widget tests cannot use SharedPreferences, so this uses a mock setup
+  /// Note: Widget tests run on the host VM; SharedPreferences is mocked.
   static Future<void> initialize() async {
     if (_initialized) {
       return;
@@ -16,12 +17,15 @@ class SupabaseTestHelper {
 
     TestWidgetsFlutterBinding.ensureInitialized();
 
+    // Supabase Auth persists session via SharedPreferences; in widget tests
+    // we must provide a mock implementation.
+    SharedPreferences.setMockInitialValues(<String, Object>{});
+
     try {
       // Load environment variables
       await dotenv.load(fileName: '.env');
 
-      // For widget tests, we use a minimal Supabase initialization
-      // that doesn't require SharedPreferences
+      // Try to initialize Supabase
       await Supabase.initialize(
         url: dotenv.env['SUPABASE_URL'] ?? 'https://test.supabase.co',
         anonKey: dotenv.env['SUPABASE_ANON_KEY'] ?? 'test-key',
@@ -34,13 +38,11 @@ class SupabaseTestHelper {
       );
 
       _initialized = true;
-    } on MissingPluginException {
-      // SharedPreferences plugin not available in widget tests
-      // This is expected - mark as initialized anyway
-      _initialized = true;
     } catch (e) {
-      // Any other error - mark as initialized to allow tests to continue
+      // If initialization fails, allow tests to proceed.
       _initialized = true;
+      // ignore: avoid_print
+      print('Supabase initialization skipped in unit test: $e');
     }
   }
 }

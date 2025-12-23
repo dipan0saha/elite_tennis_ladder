@@ -45,7 +45,7 @@ void main() {
 
       // Wait for loading to complete (will fail to load but show form)
       await tester.pump(const Duration(seconds: 1));
-      
+
       // Look for save icon button
       expect(find.byIcon(Icons.save), findsWidgets);
     });
@@ -98,8 +98,7 @@ void main() {
       expect(find.byType(DropdownButtonFormField<String>), findsWidgets);
     });
 
-    testWidgets('should have avatar section',
-        (WidgetTester tester) async {
+    testWidgets('should have avatar section', (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: ProfileScreen(),
@@ -182,7 +181,11 @@ void main() {
         ),
       );
 
-      // Check for icons in the screen
+      // Wait for async loading to finish (success or failure).
+      await tester.pump(const Duration(seconds: 1));
+      await tester.pump();
+
+      // Check for icons in the screen (form fields + avatar section).
       expect(find.byType(Icon), findsWidgets);
     });
 
@@ -293,8 +296,7 @@ void main() {
       expect(find.byType(Icon), findsWidgets);
     });
 
-    testWidgets('should have proper text labels',
-        (WidgetTester tester) async {
+    testWidgets('should have proper text labels', (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: ProfileScreen(),
@@ -310,8 +312,7 @@ void main() {
   });
 
   group('ProfileScreen State Management', () {
-    testWidgets('should be a StatefulWidget',
-        (WidgetTester tester) async {
+    testWidgets('should be a StatefulWidget', (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: ProfileScreen(),
@@ -322,8 +323,7 @@ void main() {
       expect(find.byType(ProfileScreen), findsOneWidget);
     });
 
-    testWidgets('should show Scaffold',
-        (WidgetTester tester) async {
+    testWidgets('should show Scaffold', (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: ProfileScreen(),

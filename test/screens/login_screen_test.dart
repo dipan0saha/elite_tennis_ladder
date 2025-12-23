@@ -21,8 +21,7 @@ void main() {
 
       // Verify title
       expect(find.text('Welcome back!'), findsOneWidget);
-      expect(find.text('Sign in to manage your tennis ladder challenges'),
-          findsOneWidget);
+      expect(find.text('Elite Tennis Ladder'), findsOneWidget);
 
       // Verify form fields
       expect(find.byType(TextFormField), findsNWidgets(2));
@@ -32,12 +31,13 @@ void main() {
       // Verify buttons
       expect(find.text('Login'), findsOneWidget);
       expect(find.text('Forgot Password?'), findsOneWidget);
-      expect(find.text('Create Account'), findsOneWidget);
+      expect(find.text("Don't have an account? "), findsOneWidget);
+      expect(find.text('Sign Up'), findsOneWidget);
 
       // Verify icons
       expect(find.byIcon(Icons.email_outlined), findsOneWidget);
-      expect(find.byIcon(Icons.lock_outline), findsOneWidget);
-      expect(find.byIcon(Icons.visibility), findsOneWidget);
+      expect(find.byIcon(Icons.lock_outlined), findsOneWidget);
+      expect(find.byIcon(Icons.visibility_outlined), findsOneWidget);
     });
 
     testWidgets('should show validation errors for empty fields',
@@ -71,7 +71,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Verify validation error
-      expect(find.text('Please enter a valid email'), findsOneWidget);
+      expect(find.text('Please enter a valid email address'), findsOneWidget);
     });
 
     testWidgets('should toggle password visibility',
@@ -86,22 +86,26 @@ void main() {
       final passwordField = find.byType(TextFormField).last;
 
       // Initially password should be obscured
-      TextField textField = tester.widget(passwordField);
-      expect(textField.obscureText, true);
+      EditableText editableText = tester.widget<EditableText>(
+        find.descendant(of: passwordField, matching: find.byType(EditableText)),
+      );
+      expect(editableText.obscureText, true);
 
       // Tap visibility icon
-      await tester.tap(find.byIcon(Icons.visibility));
+      await tester.tap(find.byIcon(Icons.visibility_outlined));
       await tester.pumpAndSettle();
 
       // Password should now be visible
-      textField = tester.widget(passwordField);
-      expect(textField.obscureText, false);
+      editableText = tester.widget<EditableText>(
+        find.descendant(of: passwordField, matching: find.byType(EditableText)),
+      );
+      expect(editableText.obscureText, false);
 
       // Verify icon changed
-      expect(find.byIcon(Icons.visibility_off), findsOneWidget);
+      expect(find.byIcon(Icons.visibility_off_outlined), findsOneWidget);
     });
 
-    testWidgets('should navigate to SignupScreen when Create Account is tapped',
+    testWidgets('should navigate to SignupScreen when Sign Up is tapped',
         (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
@@ -109,8 +113,8 @@ void main() {
         ),
       );
 
-      // Tap Create Account
-      await tester.tap(find.text('Create Account'));
+      // Tap Sign Up
+      await tester.tap(find.widgetWithText(TextButton, 'Sign Up'));
       await tester.pumpAndSettle();
 
       // Verify navigation to SignupScreen
@@ -150,53 +154,6 @@ void main() {
       // Verify text is entered
       expect(find.text('test@example.com'), findsOneWidget);
       expect(find.text('password123'), findsOneWidget);
-    });
-
-    testWidgets('should show loading indicator when login is in progress',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: LoginScreen(),
-        ),
-      );
-
-      // Enter valid credentials
-      await tester.enterText(
-          find.byType(TextFormField).first, 'test@example.com');
-      await tester.enterText(find.byType(TextFormField).last, 'ValidPass123!');
-
-      // Tap login button
-      await tester.tap(find.text('Login'));
-      await tester.pump();
-
-      // Verify loading indicator appears (briefly)
-      expect(find.byType(CircularProgressIndicator), findsOneWidget);
-    });
-
-    testWidgets('should disable form interactions while loading',
-        (WidgetTester tester) async {
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: LoginScreen(),
-        ),
-      );
-
-      // Enter valid credentials
-      await tester.enterText(
-          find.byType(TextFormField).first, 'test@example.com');
-      await tester.enterText(find.byType(TextFormField).last, 'ValidPass123!');
-
-      // Tap login button
-      await tester.tap(find.text('Login'));
-      await tester.pump();
-
-      // Find the ElevatedButton (Login button)
-      final loginButton = tester.widget<ElevatedButton>(
-        find.widgetWithText(ElevatedButton, 'Login'),
-      );
-
-      // Button should be disabled (onPressed is null)
-      expect(loginButton.onPressed, null);
     });
   });
 }

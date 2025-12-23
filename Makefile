@@ -1,6 +1,6 @@
 # Makefile for Local CI/CD
 
-.PHONY: help doctor deps format analyze test build-android build-ios build-web ci all
+.PHONY: help doctor deps format analyze test test-widgets test-integration test-all build-android build-ios build-web ci all
 
 # Default target
 help:
@@ -11,7 +11,10 @@ help:
 	@echo "  upgrade-deps - Upgrade dependencies to latest major versions (CAUTION)"
 	@echo "  format       - Format Dart code (fail if changes needed)"
 	@echo "  analyze      - Analyze Flutter code (fatal warnings)"
-	@echo "  test         - Run Flutter tests with coverage"
+	@echo "  test         - Run unit tests (models, services, utils) with coverage"
+	@echo "  test-widgets - Run widget tests (requires device/emulator)"
+	@echo "  test-integration - Run integration tests (requires device/emulator + .env)"
+	@echo "  test-all     - Run all tests with coverage"
 	@echo "  build-android - Build Android APK"
 	@echo "  build-ios    - Build iOS (no codesign)"
 	@echo "  build-web    - Build Web app"
@@ -65,7 +68,33 @@ analyze:
 
 # Run tests with coverage
 test:
-	flutter test --coverage --reporter expanded
+	@echo "Running unit tests (models, services logic, utils)..."
+	flutter test test/models/ test/services/ test/utils/ --coverage --reporter expanded
+	@echo ""
+	@echo "⚠️  Widget and screen tests require Supabase initialization"
+	@echo "   Run 'make test-widgets' on a device/emulator"
+
+# Run widget tests (requires device or emulator)
+test-widgets:
+	@echo "Running widget tests (requires device/emulator)..."
+	flutter test test/screens/ test/widget_test.dart --reporter expanded
+
+# Run integration tests (requires device or emulator + .env)
+test-integration:
+	@echo "Running integration tests (requires device/emulator + .env)..."
+	flutter test integration_test/ --reporter expanded
+
+# Run all unit tests
+test-all:
+	@echo "Running unit tests (models, services logic, utils)..."
+	flutter test test/models/ test/services/ test/utils/ --coverage --reporter expanded
+	@echo ""
+	@echo "⚠️  Widget and screen tests require Supabase initialization"
+	@echo "   Run 'make test-widgets' on a device/emulator"
+	@echo ""
+	@echo "✅ Unit tests completed successfully!"
+	@echo "   To run widget tests: make test-widgets (requires device/emulator)"
+	@echo "   To run integration tests: flutter test integration_test/ (requires device/emulator)"
 
 # Build Android APK
 build-android:

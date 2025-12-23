@@ -53,7 +53,7 @@ class ProfileService {
   }) async {
     try {
       final updates = <String, dynamic>{};
-      
+
       if (fullName != null) updates['full_name'] = fullName;
       if (phone != null) {
         updates['phone'] = phone.isEmpty ? null : phone;
@@ -62,7 +62,9 @@ class ProfileService {
         updates['bio'] = bio.isEmpty ? null : bio;
       }
       if (skillLevel != null) updates['skill_level'] = skillLevel;
-      if (availabilityStatus != null) updates['availability_status'] = availabilityStatus;
+      if (availabilityStatus != null) {
+        updates['availability_status'] = availabilityStatus;
+      }
       if (avatarUrl != null) updates['avatar_url'] = avatarUrl;
 
       final response = await _supabase
@@ -90,9 +92,7 @@ class ProfileService {
       final filePath = '$userId/$fileName';
 
       // Upload the file to Supabase Storage
-      await _supabase.storage
-          .from('avatars')
-          .upload(
+      await _supabase.storage.from('avatars').upload(
             filePath,
             imageFile,
             fileOptions: const FileOptions(
@@ -101,9 +101,8 @@ class ProfileService {
           );
 
       // Get the public URL for the uploaded file
-      final publicUrl = _supabase.storage
-          .from('avatars')
-          .getPublicUrl(filePath);
+      final publicUrl =
+          _supabase.storage.from('avatars').getPublicUrl(filePath);
 
       return publicUrl;
     } catch (e) {
@@ -117,7 +116,7 @@ class ProfileService {
       // Extract the file path from the URL
       final uri = Uri.parse(avatarUrl);
       final pathSegments = uri.pathSegments;
-      
+
       // Find the index of 'avatars' in the path
       final avatarsIndex = pathSegments.indexOf('avatars');
       if (avatarsIndex == -1 || avatarsIndex >= pathSegments.length - 1) {
@@ -128,9 +127,7 @@ class ProfileService {
       final filePath = pathSegments.sublist(avatarsIndex + 1).join('/');
 
       // Delete the file from storage
-      await _supabase.storage
-          .from('avatars')
-          .remove([filePath]);
+      await _supabase.storage.from('avatars').remove([filePath]);
     } catch (e) {
       throw Exception('Failed to delete avatar: $e');
     }
