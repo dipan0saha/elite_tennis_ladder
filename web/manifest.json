@@ -1,11 +1,11 @@
 {
-    "name": "elite_tennis_ladder",
-    "short_name": "elite_tennis_ladder",
+    "name": "Elite Tennis Ladder",
+    "short_name": "Tennis Ladder",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#2E7D32",
+    "theme_color": "#2E7D32",
+    "description": "A modern, mobile-first tennis ladder application for managing tennis competitions with real-time rankings and challenge systems.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
