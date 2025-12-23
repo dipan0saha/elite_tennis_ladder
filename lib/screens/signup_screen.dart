@@ -65,10 +65,38 @@ class _SignupScreenState extends State<SignupScreen> {
       }
     } on AuthException catch (e) {
       if (mounted) {
+        String errorMessage = e.message;
+        // Provide more user-friendly error messages
+        if (e.message.toLowerCase().contains('network')) {
+          errorMessage = 'Network error. Please check your internet connection and try again.';
+        } else if (e.message.toLowerCase().contains('already registered') || 
+                   e.message.toLowerCase().contains('already exists')) {
+          errorMessage = 'This email is already registered. Please try logging in instead.';
+        } else if (e.message.toLowerCase().contains('weak password')) {
+          errorMessage = 'Password is too weak. Please use a stronger password.';
+        }
+        
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(e.message),
+            content: Text(errorMessage),
             backgroundColor: Theme.of(context).colorScheme.error,
+            duration: const Duration(seconds: 5),
+            action: SnackBarAction(
+              label: 'Dismiss',
+              onPressed: () {},
+              textColor: Colors.white,
+            ),
+          ),
+        );
+      }
+    } catch (e) {
+      // Handle any other unexpected errors
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('An unexpected error occurred. Please try again later.'),
+            backgroundColor: Theme.of(context).colorScheme.error,
+            duration: const Duration(seconds: 5),
           ),
         );
       }
