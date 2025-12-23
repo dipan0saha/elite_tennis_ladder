@@ -120,7 +120,7 @@ supabase db push  # Apply new migrations only
 
 Planned migrations for Elite Tennis Ladder:
 
-1. ✅ Users table
+1. ⬜ Users table
 2. ⬜ Ladders table
 3. ⬜ Ladder members table
 4. ⬜ Challenges table
