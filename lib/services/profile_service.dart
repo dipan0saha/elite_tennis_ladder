@@ -41,6 +41,7 @@ class ProfileService {
 
   /// Update user profile
   /// Returns the updated profile
+  /// Note: Pass empty string to clear optional fields (phone, bio)
   Future<UserProfile> updateProfile({
     required String userId,
     String? fullName,
@@ -54,8 +55,12 @@ class ProfileService {
       final updates = <String, dynamic>{};
       
       if (fullName != null) updates['full_name'] = fullName;
-      if (phone != null) updates['phone'] = phone;
-      if (bio != null) updates['bio'] = bio;
+      if (phone != null) {
+        updates['phone'] = phone.isEmpty ? null : phone;
+      }
+      if (bio != null) {
+        updates['bio'] = bio.isEmpty ? null : bio;
+      }
       if (skillLevel != null) updates['skill_level'] = skillLevel;
       if (availabilityStatus != null) updates['availability_status'] = availabilityStatus;
       if (avatarUrl != null) updates['avatar_url'] = avatarUrl;

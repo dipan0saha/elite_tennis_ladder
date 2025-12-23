@@ -303,6 +303,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  /// Get the appropriate avatar image provider
+  ImageProvider? _getAvatarImage() {
+    if (_selectedImage != null) {
+      return FileImage(_selectedImage!);
+    } else if (_profile?.avatarUrl != null) {
+      return NetworkImage(_profile!.avatarUrl!);
+    }
+    return null;
+  }
+
   /// Build the avatar section with image picker
   Widget _buildAvatarSection() {
     return Column(
@@ -314,11 +324,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               CircleAvatar(
                 radius: 60,
                 backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                backgroundImage: _selectedImage != null
-                    ? FileImage(_selectedImage!)
-                    : (_profile?.avatarUrl != null
-                        ? NetworkImage(_profile!.avatarUrl!)
-                        : null) as ImageProvider?,
+                backgroundImage: _getAvatarImage(),
                 child: (_selectedImage == null && _profile?.avatarUrl == null)
                     ? Icon(
                         Icons.person,
