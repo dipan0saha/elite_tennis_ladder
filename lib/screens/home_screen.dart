@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 import 'profile_screen.dart';
 import 'ladder_list_screen.dart';
+import 'challenges_list_screen.dart';
 
 /// Home screen shown after successful authentication
 class HomeScreen extends StatelessWidget {
@@ -16,6 +17,18 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Elite Tennis Ladder'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.emoji_events),
+            tooltip: 'Challenges',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ChallengesListScreen(),
+                ),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.person),
             tooltip: 'Profile',
