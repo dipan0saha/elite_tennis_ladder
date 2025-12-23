@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
+import 'profile_screen.dart';
 
 /// Home screen shown after successful authentication
 class HomeScreen extends StatelessWidget {
@@ -14,6 +15,18 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Elite Tennis Ladder'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.person),
+            tooltip: 'Profile',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProfileScreen(),
+                ),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.logout),
             tooltip: 'Logout',
