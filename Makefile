@@ -28,8 +28,6 @@ deps:
 	flutter pub get
 	flutter pub get --offline
 	flutter pub outdated
-
-# Upgrade dependencies to latest major versions (CAUTION: may break code)
 upgrade-deps:
 	@echo "⚠️  WARNING: Major version upgrades can introduce BREAKING CHANGES!"
 	@echo "   Examples of what can break:"
@@ -62,8 +60,6 @@ upgrade-safe:
 # Format code
 format:
 	dart format .
-
-# Analyze code (fatal warnings)
 analyze:
 	flutter analyze --fatal-warnings
 
