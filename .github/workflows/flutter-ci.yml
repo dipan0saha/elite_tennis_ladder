@@ -5,6 +5,7 @@ on:
     branches: [ main, develop, copilot/** ]
   pull_request:
     branches: [ main, develop ]
+  workflow_dispatch:
 
 # Set default permissions for all jobs
 permissions:
@@ -17,6 +18,8 @@ jobs:
     
     permissions:
       contents: read
+      checks: write
+      pull-requests: write
 
     steps:
       - name: Checkout code
@@ -29,24 +32,54 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Verify Flutter installation
+        run: |
+          flutter --version
+          flutter doctor -v
+
       - name: Get dependencies
         run: flutter pub get
 
-      - name: Format code
-        run: dart format .
+      - name: Verify dependencies
+        run: flutter pub get --offline
+
+      - name: Check for package issues
+        run: flutter pub outdated
+        continue-on-error: true
+
+      - name: Format check
+        run: dart format --output=none --set-exit-if-changed .
         continue-on-error: true
 
       - name: Analyze code
-        run: flutter analyze
+        run: flutter analyze --fatal-infos
 
       - name: Run tests
-        run: flutter test --coverage
+        run: flutter test --coverage --reporter expanded
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         with:
           files: ./coverage/lcov.info
           fail_ci_if_error: false
+          flags: unittests
+          name: codecov-umbrella
+
+      - name: Generate test summary
+        if: success()
+        run: |
+          echo "### Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ All tests passed" >> $GITHUB_STEP_SUMMARY
+          echo "📊 Coverage report uploaded to Codecov" >> $GITHUB_STEP_SUMMARY
+          
+      - name: Generate test failure summary
+        if: failure()
+        run: |
+          echo "### Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "❌ Tests failed" >> $GITHUB_STEP_SUMMARY
+          echo "Please check the logs above for details" >> $GITHUB_STEP_SUMMARY
 
   build-android:
     name: Build Android APK
@@ -76,8 +109,17 @@ jobs:
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release
+          name: app-release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 14
+
+      - name: Build summary
+        run: |
+          echo "### Android Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ APK built successfully" >> $GITHUB_STEP_SUMMARY
+          echo "📦 Artifact uploaded and available for 14 days" >> $GITHUB_STEP_SUMMARY
+          echo "📱 Platform: Android" >> $GITHUB_STEP_SUMMARY
 
   build-ios:
     name: Build iOS (No Signing)
@@ -103,6 +145,14 @@ jobs:
 
       - name: Build iOS (no codesign)
         run: flutter build ios --release --no-codesign
+
+      - name: Build summary
+        run: |
+          echo "### iOS Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ iOS build completed successfully (no code signing)" >> $GITHUB_STEP_SUMMARY
+          echo "📱 Platform: iOS" >> $GITHUB_STEP_SUMMARY
+          echo "ℹ️ Code signing required for distribution" >> $GITHUB_STEP_SUMMARY
 
   build-web:
     name: Build Web
@@ -134,3 +184,13 @@ jobs:
         with:
           name: web-build
           path: build/web/
+          retention-days: 14
+
+      - name: Build summary
+        run: |
+          echo "### Web Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Web build completed successfully" >> $GITHUB_STEP_SUMMARY
+          echo "📦 Artifact uploaded and available for 14 days" >> $GITHUB_STEP_SUMMARY
+          echo "🌐 Platform: Web" >> $GITHUB_STEP_SUMMARY
+          echo "🚀 Ready for deployment" >> $GITHUB_STEP_SUMMARY

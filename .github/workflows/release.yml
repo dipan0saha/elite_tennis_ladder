@@ -1,0 +1,101 @@
+name: Automated Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  create-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.0'
+          channel: 'stable'
+          cache: true
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Run tests
+        run: flutter test
+
+      - name: Build Android APK
+        run: flutter build apk --release
+
+      - name: Build Android App Bundle
+        run: flutter build appbundle --release
+
+      - name: Build Web
+        run: flutter build web --release
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          # Get the tag name
+          TAG_NAME=${GITHUB_REF#refs/tags/}
+          echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+          
+          # Generate changelog from commits
+          PREVIOUS_TAG=$(git describe --abbrev=0 --tags ${TAG_NAME}^ 2>/dev/null || echo "")
+          if [ -z "$PREVIOUS_TAG" ]; then
+            CHANGELOG=$(git log --pretty=format:"- %s (%h)" $TAG_NAME)
+          else
+            CHANGELOG=$(git log --pretty=format:"- %s (%h)" ${PREVIOUS_TAG}..${TAG_NAME})
+          fi
+          
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release ${{ steps.changelog.outputs.tag_name }}
+          body: |
+            ## Changes in ${{ steps.changelog.outputs.tag_name }}
+            
+            ${{ steps.changelog.outputs.changelog }}
+            
+            ## Downloads
+            - **Android APK**: See assets below
+            - **Web Build**: Available in artifacts
+            
+            ## Installation
+            Download the APK file and install on your Android device.
+            For web deployment, use the web-build artifact.
+          files: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
+          draft: false
+          prerelease: false
+
+      - name: Upload web artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-web-${{ steps.changelog.outputs.tag_name }}
+          path: build/web/
+          retention-days: 90
+
+      - name: Release summary
+        run: |
+          echo "### Release Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Release ${{ steps.changelog.outputs.tag_name }} created successfully" >> $GITHUB_STEP_SUMMARY
+          echo "📦 APK and AAB files attached to release" >> $GITHUB_STEP_SUMMARY
+          echo "🌐 Web build available in artifacts" >> $GITHUB_STEP_SUMMARY
