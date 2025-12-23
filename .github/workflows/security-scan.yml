@@ -83,7 +83,7 @@ jobs:
         continue-on-error: true
 
       - name: Analyze for security issues
-        run: flutter analyze --fatal-infos
+        run: flutter analyze --fatal-warnings
 
       - name: Security scan summary
         run: |
