@@ -1,7 +1,20 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:elite_tennis_ladder/services/auth_service.dart';
 
 void main() {
+  setUpAll(() async {
+    // Load environment variables
+    await dotenv.load(fileName: '.env');
+
+    // Initialize Supabase for testing
+    await Supabase.initialize(
+      url: dotenv.env['SUPABASE_URL'] ?? '',
+      anonKey: dotenv.env['SUPABASE_ANON_KEY'] ?? '',
+    );
+  });
+
   group('AuthService', () {
     late AuthService authService;
 

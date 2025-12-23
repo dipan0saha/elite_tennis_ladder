@@ -7,7 +7,18 @@ This directory contains Supabase configuration and database migrations for the E
 ```
 supabase/
 ├── migrations/          # Database migration files
-│   ├── 20251223000000_initial_schema.sql  # Initial schema with profiles table
+│   ├── 20250101000000_enable_extensions.sql
+│   ├── 20250101000100_create_profiles_table.sql
+│   ├── 20250101000200_create_ladders_table.sql
+│   ├── 20250101000300_create_ladder_members_table.sql
+│   ├── 20250101000400_create_challenges_table.sql
+│   ├── 20250101000500_create_matches_table.sql
+│   ├── 20250101000600_create_notifications_table.sql
+│   ├── 20250101000700_create_ranking_functions.sql
+│   ├── 20250101000800_create_notification_triggers.sql
+│   ├── 20250101000900_create_views.sql
+│   ├── 20250101001000_seed_data.sql
+│   ├── 20250101001100_sample_data.sql  # Sample data for testing
 │   └── README.md       # Migration guidelines
 └── README.md           # This file
 ```
@@ -43,22 +54,40 @@ The `.env` file has been created and configured with your Supabase credentials. 
 
 ### 4. Database Schema Setup
 
-The current database schema includes:
+The database schema includes comprehensive tables for the tennis ladder system:
 
-- **profiles**: User profile data linked to Supabase Auth users
-  - Stores additional user information (full_name, bio, skill_level, etc.)
-  - Automatically created when users sign up
-  - Row Level Security enabled for user privacy
+- **profiles**: User profiles with tennis-specific fields (skill level, availability, etc.)
+- **ladders**: Ladder configurations and settings
+- **ladder_members**: Player memberships in ladders
+- **challenges**: Challenge requests between players
+- **matches**: Match results and scoring
+- **notifications**: In-app notification system
+- Plus ranking functions, triggers, and database views
 
-### 5. Apply Database Migration
+All tables use Row Level Security (RLS) for data privacy and security.
 
-**Important**: You need to manually apply the migration to your Supabase database:
+### 5. Apply Database Migrations
+
+**Important**: You need to apply all migration files to your Supabase database in order:
 
 1. Go to your [Supabase Dashboard](https://supabase.com/dashboard)
 2. Navigate to your project: `elite-tennis-ladder`
 3. Go to **SQL Editor**
-4. Copy and paste the contents of `supabase/migrations/20251223000000_initial_schema.sql`
-5. Click **Run** to execute the migration
+
+For each migration file in order, copy and paste the contents and click **Run**:
+
+1. `supabase/migrations/20250101000000_enable_extensions.sql`
+2. `supabase/migrations/20250101000100_create_profiles_table.sql`
+3. `supabase/migrations/20250101000200_create_ladders_table.sql`
+4. `supabase/migrations/20250101000300_create_ladder_members_table.sql`
+5. `supabase/migrations/20250101000400_create_challenges_table.sql`
+6. `supabase/migrations/20250101000500_create_matches_table.sql`
+7. `supabase/migrations/20250101000600_create_notifications_table.sql`
+8. `supabase/migrations/20250101000700_create_ranking_functions.sql`
+9. `supabase/migrations/20250101000800_create_notification_triggers.sql`
+10. `supabase/migrations/20250101000900_create_views.sql`
+11. `supabase/migrations/20250101001000_seed_data.sql` (optional)
+12. `supabase/migrations/20250101001100_sample_data.sql` (optional - for testing)
 
 ### 6. Disable Email Confirmations (For Testing)
 
@@ -105,8 +134,19 @@ The app includes comprehensive test setup:
 
 ## Database Migrations
 
-Current migration:
-- `20251223000000_initial_schema.sql`: Creates profiles table with RLS policies and triggers
+Current migrations (apply in this order):
+1. `20250101000000_enable_extensions.sql` - Enable PostgreSQL extensions
+2. `20250101000100_create_profiles_table.sql` - User profiles table with RLS
+3. `20250101000200_create_ladders_table.sql` - Ladder configurations
+4. `20250101000300_create_ladder_members_table.sql` - Player memberships
+5. `20250101000400_create_challenges_table.sql` - Challenge system
+6. `20250101000500_create_matches_table.sql` - Match tracking
+7. `20250101000600_create_notifications_table.sql` - Notifications system
+8. `20250101000700_create_ranking_functions.sql` - Ranking calculations
+9. `20250101000800_create_notification_triggers.sql` - Notification triggers
+10. `20250101000900_create_views.sql` - Database views
+11. `20250101001000_seed_data.sql` - Helper functions and seed data
+12. `20250101001100_sample_data.sql` - Sample data for testing
 
 To create future migrations:
 1. Create a new file: `YYYYMMDDHHMMSS_description.sql`
@@ -114,11 +154,6 @@ To create future migrations:
 3. Apply via Supabase Dashboard SQL Editor
 
 ## Useful Resources
-
-- [Supabase Documentation](https://supabase.com/docs)
-- [Supabase Auth Guide](https://supabase.com/docs/guides/auth)
-- [Row Level Security](https://supabase.com/docs/guides/auth/row-level-security)
-- [Flutter + Supabase](https://supabase.com/docs/guides/getting-started/quickstarts/flutter)
 
 - [Supabase Documentation](https://supabase.com/docs)
 - [Supabase Auth Guide](https://supabase.com/docs/guides/auth)
