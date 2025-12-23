@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../services/auth_service.dart';
+import '../utils/validators.dart';
 import 'signup_screen.dart';
 import 'password_reset_screen.dart';
 
@@ -113,15 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       hintText: 'Enter your email',
                       prefixIcon: Icon(Icons.email_outlined),
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
-                      }
-                      if (!value.contains('@')) {
-                        return 'Please enter a valid email';
-                      }
-                      return null;
-                    },
+                    validator: Validators.validateEmail,
                     enabled: !_isLoading,
                   ),
                   const SizedBox(height: 16),
@@ -147,12 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                       ),
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
-                      }
-                      return null;
-                    },
+                    validator: Validators.validatePassword,
                     enabled: !_isLoading,
                   ),
                   const SizedBox(height: 8),

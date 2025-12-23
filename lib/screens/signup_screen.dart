@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../services/auth_service.dart';
+import '../utils/validators.dart';
 import 'login_screen.dart';
 
 /// Signup screen for new user registration
@@ -126,15 +127,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       hintText: 'Enter your email',
                       prefixIcon: Icon(Icons.email_outlined),
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
-                      }
-                      if (!value.contains('@')) {
-                        return 'Please enter a valid email';
-                      }
-                      return null;
-                    },
+                    validator: Validators.validateEmail,
                     enabled: !_isLoading,
                   ),
                   const SizedBox(height: 16),
@@ -160,15 +153,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         },
                       ),
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
-                      }
-                      if (value.length < 6) {
-                        return 'Password must be at least 6 characters';
-                      }
-                      return null;
-                    },
+                    validator: Validators.validatePassword,
                     enabled: !_isLoading,
                   ),
                   const SizedBox(height: 16),
@@ -194,15 +179,10 @@ class _SignupScreenState extends State<SignupScreen> {
                         },
                       ),
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please confirm your password';
-                      }
-                      if (value != _passwordController.text) {
-                        return 'Passwords do not match';
-                      }
-                      return null;
-                    },
+                    validator: (value) => Validators.validatePasswordConfirmation(
+                      value,
+                      _passwordController.text,
+                    ),
                     enabled: !_isLoading,
                   ),
                   const SizedBox(height: 32),

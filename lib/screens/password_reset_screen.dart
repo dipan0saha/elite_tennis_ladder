@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../services/auth_service.dart';
+import '../utils/validators.dart';
 
 /// Password reset screen for requesting password reset emails
 class PasswordResetScreen extends StatefulWidget {
@@ -122,15 +123,7 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
                         hintText: 'Enter your email',
                         prefixIcon: Icon(Icons.email_outlined),
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your email';
-                        }
-                        if (!value.contains('@')) {
-                          return 'Please enter a valid email';
-                        }
-                        return null;
-                      },
+                      validator: Validators.validateEmail,
                       enabled: !_isLoading,
                     ),
                     const SizedBox(height: 32),
