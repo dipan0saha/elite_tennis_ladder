@@ -92,18 +92,27 @@ This document provides a comprehensive overview of all test scripts created for 
   12. Maintain layout structure
   13. Handle hot reload gracefully
 
-### 3. Integration Tests ✅ (PASSING - 6 tests on emulator)
+### 3. Integration Tests ✅ (PASSING - 15 tests on emulator)
 
 #### Auth Flow Integration Tests (`integration_test/auth_integration_test.dart`)
 - **Coverage**: End-to-end authentication flows on real device/emulator
-- **Status**: ✅ All passing on Android emulator
+- **Status**: ✅ All 15 tests passing on Android emulator
 - **Tests**:
   1. App launches and shows login screen
-  2. Can navigate to signup screen
-  3. Can navigate to password reset screen
-  4. Signup form accepts input
-  5. Password reset form accepts input
-  6. Toggle password visibility works
+  2. Login with valid credentials succeeds
+  3. Login with invalid credentials shows error
+  4. Login form validation works
+  5. Can navigate to signup screen
+  6. Signup form validation works
+  7. Signup with mismatched passwords shows error
+  8. Signup form accepts valid input
+  9. Can navigate to password reset screen
+  10. Password reset form validation works
+  11. Password reset form accepts valid input
+  12. Toggle password visibility works
+  13. Navigate from signup back to login
+  14. Navigate from password reset back to login
+  15. Logout from home screen works
 
 ## Test Execution Guide
 
@@ -155,8 +164,8 @@ flutter test integration_test/ --device-id emulator-5554
 |----------|-------|-------|--------|
 | Unit Tests | 2 | 10 | ✅ Passing |
 | Widget Tests | 4 | 42 | ✅ Created |
-| Integration Tests | 1 | 6 | ✅ Passing |
-| **Total** | **7** | **58** | **✅ Complete** |
+| Integration Tests | 1 | 15 | ✅ Passing |
+| **Total** | **7** | **67** | **✅ Complete** |
 
 ## Screen-by-Screen Coverage
 
