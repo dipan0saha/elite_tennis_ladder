@@ -10,6 +10,7 @@ class ChallengeCreateScreen extends StatefulWidget {
   final int myRank;
   final List<LadderMember> members;
   final Map<String, UserProfile> profiles;
+  final int challengeRange;
 
   const ChallengeCreateScreen({
     super.key,
@@ -17,6 +18,7 @@ class ChallengeCreateScreen extends StatefulWidget {
     required this.myRank,
     required this.members,
     required this.profiles,
+    required this.challengeRange,
   });
 
   @override
@@ -40,9 +42,9 @@ class _ChallengeCreateScreenState extends State<ChallengeCreateScreen> {
     // Can challenge players ranked above you within challenge range
     return widget.members.where((member) {
       if (member.playerId == userId) return false;
-      // Can challenge players above you
+      // Can challenge players above you within the ladder's challenge range
       return member.rank < widget.myRank && 
-             (widget.myRank - member.rank) <= 3; // Using default challenge range
+             (widget.myRank - member.rank) <= widget.challengeRange;
     }).toList();
   }
 

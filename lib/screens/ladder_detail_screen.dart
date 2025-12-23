@@ -55,16 +55,24 @@ class _LadderDetailScreenState extends State<LadderDetailScreen> {
       final ladder = await _ladderService.getLadder(widget.ladderId);
       final members = await _ladderService.getLadderMembers(widget.ladderId);
       
-      // Load profiles for all members
+      // Load profiles for all members concurrently
       final Map<String, UserProfile> profiles = {};
-      for (var member in members) {
+      final profileFutures = members.map((member) async {
         try {
           final profile = await _profileService.getProfileById(member.playerId);
           if (profile != null) {
-            profiles[member.playerId] = profile;
+            return MapEntry(member.playerId, profile);
           }
         } catch (e) {
           // Continue even if individual profile fails
+        }
+        return null;
+      }).toList();
+
+      final profileResults = await Future.wait(profileFutures);
+      for (var entry in profileResults) {
+        if (entry != null) {
+          profiles[entry.key] = entry.value;
         }
       }
 
@@ -193,7 +201,7 @@ class _LadderDetailScreenState extends State<LadderDetailScreen> {
                   onRetry: _loadData,
                 )
               : _buildContent(),
-      floatingActionButton: _isMember
+      floatingActionButton: _isMember && _ladder != null
           ? FloatingActionButton.extended(
               onPressed: () {
                 Navigator.push(
@@ -204,6 +212,7 @@ class _LadderDetailScreenState extends State<LadderDetailScreen> {
                       myRank: _myRank ?? 999,
                       members: _members,
                       profiles: _profiles,
+                      challengeRange: _ladder!.challengeRange,
                     ),
                   ),
                 );

@@ -121,7 +121,7 @@ class _ReportScoreScreenState extends State<ReportScoreScreen> {
         player2Set3: _player2Set3Controller.text.isNotEmpty 
             ? int.parse(_player2Set3Controller.text) 
             : null,
-        reporterId: widget.player1Id, // Assuming reporter is player1
+        reporterId: _authService.currentUser!.id, // Use current user as reporter
       );
 
       // Mark challenge as completed
@@ -273,7 +273,7 @@ class _ReportScoreScreenState extends State<ReportScoreScreen> {
                     return 'Required';
                   }
                   final score = int.tryParse(value);
-                  if (score == null || score < 0 || score > 7) {
+                  if (score == null || score < 0 || score > 15) {
                     return 'Invalid';
                   }
                   return null;
@@ -307,7 +307,7 @@ class _ReportScoreScreenState extends State<ReportScoreScreen> {
                     return 'Required';
                   }
                   final score = int.tryParse(value);
-                  if (score == null || score < 0 || score > 7) {
+                  if (score == null || score < 0 || score > 15) {
                     return 'Invalid';
                   }
                   return null;

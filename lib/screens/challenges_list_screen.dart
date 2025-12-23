@@ -72,16 +72,24 @@ class _ChallengesListScreenState extends State<ChallengesListScreen> with Single
         userIds.add(challenge.opponentId);
       }
 
-      // Load profiles
+      // Load profiles concurrently
       final Map<String, UserProfile> profiles = {};
-      for (var userId in userIds) {
+      final profileFutures = userIds.map((userId) async {
         try {
           final profile = await _profileService.getProfileById(userId);
           if (profile != null) {
-            profiles[userId] = profile;
+            return MapEntry(userId, profile);
           }
         } catch (e) {
           // Continue even if individual profile fails
+        }
+        return null;
+      }).toList();
+
+      final profileResults = await Future.wait(profileFutures);
+      for (var entry in profileResults) {
+        if (entry != null) {
+          profiles[entry.key] = entry.value;
         }
       }
 
