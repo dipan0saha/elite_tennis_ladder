@@ -457,7 +457,7 @@ The Login Screen is the entry point for returning users to access the Elite Tenn
 
 ### Keyboard Navigation
 - Full keyboard support
-- Clear focus indicators (2px blue outline)
+- Clear focus indicators (2px Tennis Green Primary #2E7D32 outline)
 - Enter to submit
 - Escape to clear/cancel
 

@@ -27,7 +27,7 @@ The Ladder View is the primary screen of the Elite Tennis Ladder application. It
 │                                 │
 │  ┌──────────  You  ──────────┐  │ ← Current user position card
 │  │  📊 Your Ranking: #8      │  │   Sticky, always visible
-│  │  ⬆️ Up 2 spots this week  │  │   Background: #E3F2FD
+│  │  ⬆️ Up 2 spots this week  │  │   Background: #E8F5E9 (light green tint)
 │  └───────────────────────────┘  │   56px height
 │                                 │
 │  🔍 Search players...      ⚙️   │ ← Search bar, 44px height
@@ -143,7 +143,7 @@ The Ladder View is the primary screen of the Elite Tennis Ladder application. It
 
 **Position:** Sticky below header  
 **Height:** 56px  
-**Background:** Light blue (#E3F2FD)  
+**Background:** Light green tint (#E8F5E9)  
 **Border:** 1px solid #2E7D32 (Tennis Green Primary)  
 **Border Radius:** 8px  
 **Padding:** 12px  
@@ -585,7 +585,7 @@ The Ladder View is the primary screen of the Elite Tennis Ladder application. It
 
 ### Visual Indicators
 - High contrast mode support
-- Focus indicators (2px blue outline)
+- Focus indicators (2px Tennis Green Primary #2E7D32 outline)
 - No color-only information
 - Icons with labels
 
