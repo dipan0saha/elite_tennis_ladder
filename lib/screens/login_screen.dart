@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
         email: _emailController.text.trim(),
         password: _passwordController.text,
       );
-      
+
       if (mounted) {
         // Navigation will be handled by auth state listener in main.dart
         ScaffoldMessenger.of(context).showSnackBar(
@@ -104,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 48),
-                  
+
                   // Email field
                   TextFormField(
                     controller: _emailController,
@@ -118,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     enabled: !_isLoading,
                   ),
                   const SizedBox(height: 16),
-                  
+
                   // Password field
                   TextFormField(
                     controller: _passwordController,
@@ -144,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     enabled: !_isLoading,
                   ),
                   const SizedBox(height: 8),
-                  
+
                   // Forgot password button
                   Align(
                     alignment: Alignment.centerRight,
@@ -164,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  
+
                   // Login button
                   ElevatedButton(
                     onPressed: _isLoading ? null : _handleLogin,
@@ -179,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         : const Text('Login'),
                   ),
                   const SizedBox(height: 16),
-                  
+
                   // Sign up prompt
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

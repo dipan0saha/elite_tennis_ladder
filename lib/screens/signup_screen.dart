@@ -48,12 +48,13 @@ class _SignupScreenState extends State<SignupScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Signup successful! Please check your email to verify your account.'),
+            content: Text(
+                'Signup successful! Please check your email to verify your account.'),
             backgroundColor: Colors.green,
             duration: Duration(seconds: 5),
           ),
         );
-        
+
         // Navigate back to login after signup
         Navigator.pushReplacement(
           context,
@@ -117,7 +118,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 48),
-                  
+
                   // Email field
                   TextFormField(
                     controller: _emailController,
@@ -131,7 +132,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     enabled: !_isLoading,
                   ),
                   const SizedBox(height: 16),
-                  
+
                   // Password field
                   TextFormField(
                     controller: _passwordController,
@@ -157,7 +158,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     enabled: !_isLoading,
                   ),
                   const SizedBox(height: 16),
-                  
+
                   // Confirm password field
                   TextFormField(
                     controller: _confirmPasswordController,
@@ -179,14 +180,15 @@ class _SignupScreenState extends State<SignupScreen> {
                         },
                       ),
                     ),
-                    validator: (value) => Validators.validatePasswordConfirmation(
+                    validator: (value) =>
+                        Validators.validatePasswordConfirmation(
                       value,
                       _passwordController.text,
                     ),
                     enabled: !_isLoading,
                   ),
                   const SizedBox(height: 32),
-                  
+
                   // Signup button
                   ElevatedButton(
                     onPressed: _isLoading ? null : _handleSignup,
@@ -201,7 +203,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         : const Text('Sign Up'),
                   ),
                   const SizedBox(height: 16),
-                  
+
                   // Login prompt
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

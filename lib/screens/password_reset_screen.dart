@@ -42,10 +42,11 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
         setState(() {
           _emailSent = true;
         });
-        
+
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Password reset email sent! Please check your inbox.'),
+            content:
+                Text('Password reset email sent! Please check your inbox.'),
             backgroundColor: Colors.green,
             duration: Duration(seconds: 5),
           ),
@@ -92,7 +93,7 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                   const SizedBox(height: 16),
-                  
+
                   // Title
                   Text(
                     _emailSent ? 'Check Your Email' : 'Reset Password',
@@ -100,7 +101,7 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 8),
-                  
+
                   // Description
                   Text(
                     _emailSent
@@ -112,7 +113,7 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 48),
-                  
+
                   if (!_emailSent) ...[
                     // Email field
                     TextFormField(
@@ -127,7 +128,7 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
                       enabled: !_isLoading,
                     ),
                     const SizedBox(height: 32),
-                    
+
                     // Reset button
                     ElevatedButton(
                       onPressed: _isLoading ? null : _handlePasswordReset,
@@ -150,7 +151,7 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
                       child: const Text('Back to Login'),
                     ),
                     const SizedBox(height: 16),
-                    
+
                     // Resend email option
                     TextButton(
                       onPressed: _isLoading

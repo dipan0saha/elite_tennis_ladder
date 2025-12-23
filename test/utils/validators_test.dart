@@ -60,7 +60,8 @@ void main() {
       );
     });
 
-    test('validatePasswordConfirmation returns error for empty confirmation', () {
+    test('validatePasswordConfirmation returns error for empty confirmation',
+        () {
       expect(
         Validators.validatePasswordConfirmation('', 'password123'),
         isNotNull,
@@ -71,7 +72,9 @@ void main() {
       );
     });
 
-    test('validatePasswordConfirmation returns error when passwords do not match', () {
+    test(
+        'validatePasswordConfirmation returns error when passwords do not match',
+        () {
       expect(
         Validators.validatePasswordConfirmation('password123', 'password456'),
         isNotNull,

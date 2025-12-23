@@ -14,11 +14,11 @@ class Validators {
     if (value == null || value.isEmpty) {
       return 'Please enter your email';
     }
-    
+
     if (!_emailRegex.hasMatch(value.trim())) {
       return 'Please enter a valid email address';
     }
-    
+
     return null;
   }
 
@@ -28,11 +28,11 @@ class Validators {
     if (value == null || value.isEmpty) {
       return 'Please enter your password';
     }
-    
+
     if (value.length < minLength) {
       return 'Password must be at least $minLength characters';
     }
-    
+
     return null;
   }
 
@@ -42,11 +42,11 @@ class Validators {
     if (value == null || value.isEmpty) {
       return 'Please confirm your password';
     }
-    
+
     if (value != password) {
       return 'Passwords do not match';
     }
-    
+
     return null;
   }
 }
