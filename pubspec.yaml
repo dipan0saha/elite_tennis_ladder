@@ -50,6 +50,10 @@ dev_dependencies:
   # specified in `analysis_options.yaml` (or in this file). This way each
   # contributor can have their own linting rules.
   flutter_lints: ^2.0.0
+  
+  # Integration testing
+  integration_test:
+    sdk: flutter
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
