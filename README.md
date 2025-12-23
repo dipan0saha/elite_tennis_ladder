@@ -122,6 +122,7 @@ See [docs/design/DESIGN_SYSTEM.md](docs/design/DESIGN_SYSTEM.md) for complete sp
 - [Design System](docs/design/DESIGN_SYSTEM.md)
 - [UI Mockups](docs/design/UI_MOCKUPS.md)
 - [Wireframes](docs/design/wireframes/README.md)
+- [User Flow Mapping](docs/user_flows/README.md)
 - [Requirements](docs/requirements/README.md)
 - [Competitor Analysis](docs/competitor_feature_parity/README.md)
 - [Supabase Setup](supabase/README.md)
