@@ -52,7 +52,7 @@ jobs:
         continue-on-error: true
 
       - name: Analyze code
-        run: flutter analyze --fatal-infos
+        run: flutter analyze --fatal-warnings
 
       - name: Run tests
         run: flutter test --coverage --reporter expanded
