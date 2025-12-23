@@ -95,6 +95,7 @@ SELECT
     c.expires_at,
     c.responded_at,
     c.created_at,
+    -- Hours until expiry (negative means expired)
     EXTRACT(EPOCH FROM (c.expires_at - NOW())) / 3600 as hours_until_expiry
 FROM challenges c
 JOIN ladders l ON c.ladder_id = l.id

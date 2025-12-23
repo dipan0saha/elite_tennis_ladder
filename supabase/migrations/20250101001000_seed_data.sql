@@ -145,7 +145,7 @@ BEGIN
         AND ladder_id = p_ladder_id 
         AND status = 'declined';
     
-    IF recent_decline_date IS NOT NULL AND recent_decline_date > (NOW() - (cooldown_days || ' days')::INTERVAL) THEN
+    IF recent_decline_date IS NOT NULL AND recent_decline_date > (NOW() - (COALESCE(cooldown_days, 14) || ' days')::INTERVAL) THEN
         RETURN QUERY SELECT false, 'You must wait before challenging this player again';
         RETURN;
     END IF;

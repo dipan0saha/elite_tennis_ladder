@@ -10,8 +10,9 @@ RETURNS TRIGGER AS $$
 DECLARE
     challenger_name TEXT;
 BEGIN
-    -- Get challenger's name
-    SELECT full_name INTO challenger_name FROM profiles WHERE id = NEW.challenger_id;
+    -- Get challenger's name (with fallback)
+    SELECT COALESCE(full_name, username, 'A player') INTO challenger_name 
+    FROM profiles WHERE id = NEW.challenger_id;
     
     -- Create notification for opponent
     PERFORM create_notification(
@@ -42,8 +43,9 @@ DECLARE
     opponent_name TEXT;
 BEGIN
     IF NEW.status != OLD.status AND NEW.status IN ('accepted', 'declined') THEN
-        -- Get opponent's name
-        SELECT full_name INTO opponent_name FROM profiles WHERE id = NEW.opponent_id;
+        -- Get opponent's name (with fallback)
+        SELECT COALESCE(full_name, username, 'A player') INTO opponent_name 
+        FROM profiles WHERE id = NEW.opponent_id;
         
         -- Notify challenger
         PERFORM create_notification(

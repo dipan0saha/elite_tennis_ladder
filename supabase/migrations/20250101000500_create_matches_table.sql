@@ -109,7 +109,7 @@ DECLARE
 BEGIN
     -- Only calculate if match is completed
     IF NEW.status = 'completed' THEN
-        -- Count sets won by each player
+        -- Count sets won by each player (sets cannot be tied in tennis)
         IF NEW.player1_set1_score > NEW.player2_set1_score THEN
             player1_sets := player1_sets + 1;
         ELSIF NEW.player2_set1_score > NEW.player1_set1_score THEN
@@ -130,7 +130,7 @@ BEGIN
             END IF;
         END IF;
         
-        -- Set winner
+        -- Set winner (require clear winner, don't update if tied)
         IF player1_sets > player2_sets THEN
             NEW.winner_id := NEW.player1_id;
         ELSIF player2_sets > player1_sets THEN
