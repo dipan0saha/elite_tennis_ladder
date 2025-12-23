@@ -410,14 +410,7 @@ void main() {
   });
 
   group('Profile Screen Error Handling', () {
-    testWidgets('Shows error when profile fails to load',
-        (WidgetTester tester) async {
-      // This test would require mocking a failed profile load
-      // or testing with an unauthenticated state
-      await tester.pumpWidget(const MyApp());
-      await tester.pumpAndSettle();
-
-      // Without login, profile screen should handle the error gracefully
-    });
+    // TODO: Implement error handling tests when mocking infrastructure is available
+    // This would require mocking Supabase failures or testing edge cases
   });
 }
