@@ -7,28 +7,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:elite_tennis_ladder/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
-
-  testWidgets('App theme test', (WidgetTester tester) async {
+  testWidgets('App initializes correctly', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
 
@@ -36,11 +18,16 @@ void main() {
     expect(find.text('Elite Tennis Ladder'), findsOneWidget);
   });
 
-  testWidgets('App bar displays title', (WidgetTester tester) async {
+  testWidgets('Login screen is displayed for unauthenticated user',
+      (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
+    
+    // Wait for auth state to settle
+    await tester.pumpAndSettle();
 
-    // Verify that the app bar shows the title
-    expect(find.widgetWithText(AppBar, 'Elite Tennis Ladder'), findsOneWidget);
+    // Verify that login UI elements are present
+    expect(find.text('Welcome back!'), findsOneWidget);
+    expect(find.text('Login'), findsAtLeastNWidgets(1));
   });
 }
