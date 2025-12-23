@@ -10,36 +10,31 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
-    
+
     // Color Scheme
     colorScheme: const ColorScheme.light(
       primary: AppColors.primary,
       onPrimary: Colors.white,
       primaryContainer: AppColors.primaryLight,
       onPrimaryContainer: AppColors.primaryDark,
-      
       secondary: AppColors.secondary,
       onSecondary: Colors.white,
       secondaryContainer: AppColors.secondaryLight,
       onSecondaryContainer: AppColors.secondaryDark,
-      
       error: AppColors.error,
       onError: Colors.white,
       errorContainer: AppColors.errorLight,
       onErrorContainer: AppColors.errorDark,
-      
       background: AppColors.lightBackground,
       onBackground: AppColors.lightTextPrimary,
-      
       surface: AppColors.lightBackground,
       onSurface: AppColors.lightTextPrimary,
       surfaceVariant: AppColors.lightBackgroundSecondary,
       onSurfaceVariant: AppColors.lightTextSecondary,
-      
       outline: AppColors.lightBorder,
       outlineVariant: AppColors.lightBorderLight,
     ),
-    
+
     // App Bar Theme
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.primary,
@@ -58,7 +53,7 @@ class AppTheme {
         size: 24,
       ),
     ),
-    
+
     // Card Theme
     // Note: Light mode uses elevation shadows for card separation
     // No border needed as cards stand out well against light backgrounds
@@ -70,7 +65,7 @@ class AppTheme {
       ),
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     ),
-    
+
     // Input Decoration Theme
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
@@ -99,7 +94,7 @@ class AppTheme {
         color: AppColors.lightTextSecondary,
       ),
     ),
-    
+
     // Elevated Button Theme
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -119,7 +114,7 @@ class AppTheme {
         ),
       ),
     ),
-    
+
     // Outlined Button Theme
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
@@ -138,7 +133,7 @@ class AppTheme {
         ),
       ),
     ),
-    
+
     // Text Button Theme
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
@@ -153,7 +148,7 @@ class AppTheme {
         ),
       ),
     ),
-    
+
     // Bottom Navigation Bar Theme
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: AppColors.lightBackground,
@@ -172,7 +167,7 @@ class AppTheme {
       type: BottomNavigationBarType.fixed,
       elevation: 8,
     ),
-    
+
     // Floating Action Button Theme
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: AppColors.primary,
@@ -180,14 +175,14 @@ class AppTheme {
       elevation: 4,
       shape: CircleBorder(),
     ),
-    
+
     // Divider Theme
     dividerTheme: const DividerThemeData(
       color: AppColors.lightBorderLight,
       thickness: 1,
       space: 1,
     ),
-    
+
     // Text Theme
     textTheme: const TextTheme(
       // Display styles
@@ -215,7 +210,7 @@ class AppTheme {
         letterSpacing: 0,
         color: AppColors.lightTextPrimary,
       ),
-      
+
       // Headline styles
       headlineLarge: TextStyle(
         fontFamily: 'Roboto',
@@ -241,7 +236,7 @@ class AppTheme {
         letterSpacing: 0,
         color: AppColors.lightTextPrimary,
       ),
-      
+
       // Title styles
       titleLarge: TextStyle(
         fontFamily: 'Roboto',
@@ -267,7 +262,7 @@ class AppTheme {
         letterSpacing: 0.1,
         color: AppColors.lightTextPrimary,
       ),
-      
+
       // Body styles
       bodyLarge: TextStyle(
         fontFamily: 'Roboto',
@@ -293,7 +288,7 @@ class AppTheme {
         letterSpacing: 0.4,
         color: AppColors.lightTextSecondary,
       ),
-      
+
       // Label styles
       labelLarge: TextStyle(
         fontFamily: 'Roboto',
@@ -320,7 +315,7 @@ class AppTheme {
         color: AppColors.lightTextSecondary,
       ),
     ),
-    
+
     // Icon Theme
     iconTheme: const IconThemeData(
       color: AppColors.lightTextPrimary,
@@ -332,36 +327,31 @@ class AppTheme {
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
-    
+
     // Color Scheme
     colorScheme: const ColorScheme.dark(
       primary: AppColors.primaryLighter,
       onPrimary: AppColors.darkBackground,
       primaryContainer: AppColors.primary,
       onPrimaryContainer: AppColors.primaryLighter,
-      
       secondary: AppColors.secondaryLighter,
       onSecondary: AppColors.darkBackground,
       secondaryContainer: AppColors.secondary,
       onSecondaryContainer: AppColors.secondaryLighter,
-      
       error: AppColors.errorLight,
       onError: AppColors.darkBackground,
       errorContainer: AppColors.error,
       onErrorContainer: AppColors.errorLight,
-      
       background: AppColors.darkBackground,
       onBackground: AppColors.darkTextPrimary,
-      
       surface: AppColors.darkBackgroundSecondary,
       onSurface: AppColors.darkTextPrimary,
       surfaceVariant: AppColors.darkBackgroundTertiary,
       onSurfaceVariant: AppColors.darkTextSecondary,
-      
       outline: AppColors.darkBorder,
       outlineVariant: AppColors.darkBorder,
     ),
-    
+
     // App Bar Theme
     appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.darkBackgroundSecondary,
@@ -380,7 +370,7 @@ class AppTheme {
         size: 24,
       ),
     ),
-    
+
     // Card Theme
     // Note: Dark mode uses border for better card separation against dark backgrounds
     // Light mode relies on elevation shadows for separation
@@ -393,7 +383,7 @@ class AppTheme {
       ),
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     ),
-    
+
     // Input Decoration Theme
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
@@ -422,7 +412,7 @@ class AppTheme {
         color: AppColors.darkTextSecondary,
       ),
     ),
-    
+
     // Elevated Button Theme
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -442,7 +432,7 @@ class AppTheme {
         ),
       ),
     ),
-    
+
     // Outlined Button Theme
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
@@ -461,7 +451,7 @@ class AppTheme {
         ),
       ),
     ),
-    
+
     // Text Button Theme
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
@@ -476,7 +466,7 @@ class AppTheme {
         ),
       ),
     ),
-    
+
     // Bottom Navigation Bar Theme
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: AppColors.darkBackgroundSecondary,
@@ -495,7 +485,7 @@ class AppTheme {
       type: BottomNavigationBarType.fixed,
       elevation: 8,
     ),
-    
+
     // Floating Action Button Theme
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: AppColors.primaryLighter,
@@ -503,14 +493,14 @@ class AppTheme {
       elevation: 4,
       shape: CircleBorder(),
     ),
-    
+
     // Divider Theme
     dividerTheme: const DividerThemeData(
       color: AppColors.darkBorder,
       thickness: 1,
       space: 1,
     ),
-    
+
     // Text Theme (Dark Mode)
     textTheme: const TextTheme(
       // Display styles
@@ -538,7 +528,7 @@ class AppTheme {
         letterSpacing: 0,
         color: AppColors.darkTextPrimary,
       ),
-      
+
       // Headline styles
       headlineLarge: TextStyle(
         fontFamily: 'Roboto',
@@ -564,7 +554,7 @@ class AppTheme {
         letterSpacing: 0,
         color: AppColors.darkTextPrimary,
       ),
-      
+
       // Title styles
       titleLarge: TextStyle(
         fontFamily: 'Roboto',
@@ -590,7 +580,7 @@ class AppTheme {
         letterSpacing: 0.1,
         color: AppColors.darkTextPrimary,
       ),
-      
+
       // Body styles
       bodyLarge: TextStyle(
         fontFamily: 'Roboto',
@@ -616,7 +606,7 @@ class AppTheme {
         letterSpacing: 0.4,
         color: AppColors.darkTextSecondary,
       ),
-      
+
       // Label styles
       labelLarge: TextStyle(
         fontFamily: 'Roboto',
@@ -643,7 +633,7 @@ class AppTheme {
         color: AppColors.darkTextSecondary,
       ),
     ),
-    
+
     // Icon Theme
     iconTheme: const IconThemeData(
       color: AppColors.darkTextPrimary,
