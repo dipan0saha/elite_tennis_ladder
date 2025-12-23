@@ -2,6 +2,11 @@
 
 This directory contains comprehensive design documentation for the Elite Tennis Ladder application.
 
+**Synchronization Status:** ✅ All design documents are synchronized and use consistent specifications.
+- Wireframes, UI Mockups, and Design System are aligned
+- Color palette is consistent across all documents (Tennis Green primary, Court Blue secondary)
+- Theme implementation (`lib/theme/`) follows the Design System specifications
+
 ## Documents
 
 ### 1. [Design System](./DESIGN_SYSTEM.md)
@@ -26,6 +31,18 @@ High-fidelity mockup specifications for all key screens:
 - **Settings Screen:** App configuration and preferences
 - **Navigation Flow:** Complete information architecture
 - **Responsive Design:** Mobile, tablet, and desktop specifications
+
+### 3. [Wireframes](./wireframes/)
+Low-fidelity wireframes for key user screens:
+- **Login Screen:** Authentication and onboarding
+- **Ladder View Screen:** Primary ladder rankings display
+- **Challenge Creation Screen:** Challenge flow and interactions
+- **Profile Screen:** User profile and statistics
+- **Accessibility Guidelines:** WCAG 2.1 Level AA compliance details
+- **Mobile-First Design:** Touch-friendly layouts and interactions
+- **User Flow Navigation:** Complete navigation patterns
+
+**Note:** Wireframes follow the same color palette and design principles as the Design System and UI Mockups.
 
 ## Design Principles
 

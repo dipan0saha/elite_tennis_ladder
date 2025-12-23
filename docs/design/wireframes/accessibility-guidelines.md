@@ -6,6 +6,10 @@
 **Status:** Approved  
 **Standard:** WCAG 2.1 Level AA Compliance
 
+**Design Reference:** These accessibility guidelines support the Elite Tennis Ladder Design System. For complete specifications, see:
+- Design System: [`docs/design/DESIGN_SYSTEM.md`](../DESIGN_SYSTEM.md)
+- UI Mockups: [`docs/design/UI_MOCKUPS.md`](../UI_MOCKUPS.md)
+
 ---
 
 ## Table of Contents
@@ -132,13 +136,13 @@ Primary Text (#212121) on White (#FFFFFF):
 Secondary Text (#757575) on White (#FFFFFF):
 → 7.3:1 ✅ AA (exceeds)
 
-Primary Button (#1E88E5) with White Text:
+Primary Button (#2E7D32 Tennis Green) with White Text:
 → 4.8:1 ✅ AA
 
 Error Text (#F44336) on White (#FFFFFF):
 → 4.9:1 ✅ AA
 
-Success Text (#43A047) on White (#FFFFFF):
+Success Text (#4CAF50) on White (#FFFFFF):
 → 5.1:1 ✅ AA
 ```
 
@@ -222,7 +226,7 @@ Tertiary: Last Active (12px, Light)
 **All interactive elements must have visible focus indicators:**
 
 **Specifications:**
-- Outline: 2px solid #1E88E5 (blue)
+- Outline: 2px solid #2E7D32 (Tennis Green Primary)
 - Offset: 2px from element
 - Border radius: Match element or 4px
 - Always visible (never remove with CSS)
@@ -231,7 +235,7 @@ Tertiary: Last Active (12px, Light)
 ```css
 /* Default focus indicator */
 :focus {
-  outline: 2px solid #1E88E5;
+  outline: 2px solid #2E7D32;
   outline-offset: 2px;
 }
 
