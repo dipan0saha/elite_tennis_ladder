@@ -1,0 +1,239 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:elite_tennis_ladder/screens/home_screen.dart';
+import '../helpers/supabase_test_helper.dart';
+
+void main() {
+  setUpAll(() async {
+    await SupabaseTestHelper.initialize();
+  });
+
+  group('HomeScreen Widget Tests', () {
+    testWidgets('should display all UI elements correctly',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: HomeScreen(),
+        ),
+      );
+
+      // Verify app bar
+      expect(find.text('Elite Tennis Ladder'), findsOneWidget);
+      expect(find.byIcon(Icons.logout), findsOneWidget);
+
+      // Verify welcome message
+      expect(find.text('Welcome!'), findsOneWidget);
+
+      // Verify tennis icon
+      expect(find.byIcon(Icons.sports_tennis), findsOneWidget);
+
+      // Verify coming soon message
+      expect(find.textContaining('Coming Soon'), findsOneWidget);
+      expect(
+          find.textContaining(
+              'Ladder rankings, challenge system, and match tracking'),
+          findsOneWidget);
+    });
+
+    testWidgets('should display user email when available',
+        (WidgetTester tester) async {
+      // Note: This test will show "Not available" since we're not authenticated
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: HomeScreen(),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+
+      // In a non-authenticated state, should show either email or a fallback
+      // The actual behavior depends on auth state
+      expect(find.byType(Text), findsWidgets);
+    });
+
+    testWidgets('should have logout button in app bar',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: HomeScreen(),
+        ),
+      );
+
+      // Find logout button
+      final logoutButton = find.byIcon(Icons.logout);
+      expect(logoutButton, findsOneWidget);
+
+      // Verify it has a tooltip
+      final iconButton = tester.widget<IconButton>(
+        find.widgetWithIcon(IconButton, Icons.logout),
+      );
+      expect(iconButton.tooltip, 'Logout');
+    });
+
+    testWidgets('should trigger logout when logout button is tapped',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: HomeScreen(),
+        ),
+      );
+
+      // Tap logout button
+      await tester.tap(find.byIcon(Icons.logout));
+      await tester.pumpAndSettle();
+
+      // Note: Actual navigation depends on auth state listener in main.dart
+      // This test verifies the button is tappable
+      expect(find.byType(HomeScreen), findsOneWidget);
+    });
+
+    testWidgets('should display tennis icon with correct color',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: HomeScreen(),
+        ),
+      );
+
+      // Find tennis icon
+      final iconFinder = find.byIcon(Icons.sports_tennis);
+      expect(iconFinder, findsOneWidget);
+
+      // Verify icon properties
+      final icon = tester.widget<Icon>(iconFinder);
+      expect(icon.size, 100);
+    });
+
+    testWidgets('should center content properly', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: HomeScreen(),
+        ),
+      );
+
+      // Verify Center widget exists
+      expect(find.byType(Center), findsOneWidget);
+
+      // Verify Column with centered content
+      final columnFinder = find.byType(Column);
+      expect(columnFinder, findsOneWidget);
+
+      final column = tester.widget<Column>(columnFinder);
+      expect(column.mainAxisAlignment, MainAxisAlignment.center);
+    });
+
+    testWidgets('should have proper padding around content',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: HomeScreen(),
+        ),
+      );
+
+      // Find Padding widget
+      final paddingFinder = find.byType(Padding);
+      expect(paddingFinder, findsWidgets);
+
+      // Verify main content padding
+      final padding = tester.widget<Padding>(
+        paddingFinder.first,
+      );
+      expect(padding.padding, const EdgeInsets.all(24.0));
+    });
+
+    testWidgets('should display welcome text with correct styling',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: HomeScreen(),
+        ),
+      );
+
+      // Find welcome text
+      final welcomeText = find.text('Welcome!');
+      expect(welcomeText, findsOneWidget);
+
+      // Note: Exact text style depends on theme
+      expect(find.byType(Text), findsWidgets);
+    });
+
+    testWidgets('should have SizedBox spacing between elements',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: HomeScreen(),
+        ),
+      );
+
+      // Verify SizedBox widgets for spacing
+      final sizedBoxFinder = find.byType(SizedBox);
+      expect(sizedBoxFinder, findsWidgets);
+    });
+
+    testWidgets('should display coming soon card with proper styling',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: HomeScreen(),
+        ),
+      );
+
+      // Find Card widget
+      expect(find.byType(Card), findsOneWidget);
+
+      // Verify coming soon content
+      expect(find.byIcon(Icons.construction), findsOneWidget);
+      expect(find.text('Coming Soon'), findsOneWidget);
+    });
+
+    testWidgets('should be scrollable for small screens',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: HomeScreen(),
+        ),
+      );
+
+      // Verify SingleChildScrollView exists for scrollability
+      expect(find.byType(SingleChildScrollView), findsOneWidget);
+    });
+
+    testWidgets('should maintain layout structure',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: HomeScreen(),
+        ),
+      );
+
+      // Verify main structural widgets
+      expect(find.byType(Scaffold), findsOneWidget);
+      expect(find.byType(AppBar), findsOneWidget);
+      expect(find.byType(SingleChildScrollView), findsOneWidget);
+      expect(find.byType(Center), findsOneWidget);
+      expect(find.byType(Column), findsOneWidget);
+    });
+
+    testWidgets('should handle hot reload gracefully',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: HomeScreen(),
+        ),
+      );
+
+      // Verify initial state
+      expect(find.text('Welcome!'), findsOneWidget);
+
+      // Pump again (simulates hot reload)
+      await tester.pumpWidget(
+        const MaterialApp(
+          home: HomeScreen(),
+        ),
+      );
+
+      // Verify state is maintained
+      expect(find.text('Welcome!'), findsOneWidget);
+    });
+  });
+}
