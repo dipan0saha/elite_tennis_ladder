@@ -1,7 +1,10 @@
 # Elite Tennis Ladder 🎾
 
 [![Flutter CI](https://github.com/dipan0saha/elite_tennis_ladder/actions/workflows/flutter-ci.yml/badge.svg)](https://github.com/dipan0saha/elite_tennis_ladder/actions/workflows/flutter-ci.yml)
+[![Security Scan](https://github.com/dipan0saha/elite_tennis_ladder/actions/workflows/security-scan.yml/badge.svg)](https://github.com/dipan0saha/elite_tennis_ladder/actions/workflows/security-scan.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Flutter Version](https://img.shields.io/badge/Flutter-3.16.0-blue.svg)](https://flutter.dev/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 A modern, mobile-first tennis ladder application built with Flutter and Supabase. Elite Tennis Ladder provides an ad-free, intuitive platform for managing tennis ladder competitions with real-time ranking updates, challenge systems, and match tracking.
 
@@ -113,6 +116,8 @@ See [docs/design/DESIGN_SYSTEM.md](docs/design/DESIGN_SYSTEM.md) for complete sp
 
 ## 📖 Documentation
 
+- [CI/CD Pipeline](docs/CI_CD.md)
+- [Workflow Status Dashboard](docs/WORKFLOW_STATUS.md)
 - [Tech Stack Evaluation](docs/tech_stack_evaluation/README.md)
 - [Design System](docs/design/DESIGN_SYSTEM.md)
 - [UI Mockups](docs/design/UI_MOCKUPS.md)
@@ -130,6 +135,19 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for deta
 - Coding standards
 - Testing guidelines
 - Pull request process
+- CI/CD pipeline information
+
+## 🔄 CI/CD Pipeline
+
+This project uses GitHub Actions for automated testing, building, and deployment:
+
+- ✅ **Automated Testing**: Runs on every pull request
+- 🔨 **Multi-platform Builds**: Android, iOS, and Web
+- 🚀 **Deployment Workflows**: Staging and production pipelines
+- 🔒 **Security Scanning**: CodeQL and dependency reviews
+- 📦 **Automated Releases**: Version tagging and artifact generation
+
+See [CI/CD Documentation](docs/CI_CD.md) for details.
 
 ## 📋 Roadmap
 

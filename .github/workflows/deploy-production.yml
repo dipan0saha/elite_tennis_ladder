@@ -1,0 +1,74 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-production:
+    name: Deploy to Production Environment
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://elitetennisladder.com
+    
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.0'
+          channel: 'stable'
+          cache: true
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Run tests
+        run: flutter test
+
+      - name: Build Web for Production
+        run: flutter build web --release --dart-define=ENV=production
+
+      - name: Build Android APK for Production
+        run: flutter build apk --release --dart-define=ENV=production
+
+      - name: Deploy to Production
+        run: |
+          echo "Deploying to production environment..."
+          echo "Build artifacts ready at build/web/"
+          echo "Note: Actual deployment requires hosting configuration (Firebase, Netlify, etc.)"
+          
+      - name: Upload production web artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-web-build
+          path: build/web/
+          retention-days: 30
+
+      - name: Upload production APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 30
+
+      - name: Production deployment summary
+        run: |
+          echo "### Production Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Build completed successfully" >> $GITHUB_STEP_SUMMARY
+          echo "📦 Artifacts uploaded" >> $GITHUB_STEP_SUMMARY
+          echo "🔗 Environment: Production" >> $GITHUB_STEP_SUMMARY
+          echo "🌐 URL: https://elitetennisladder.com (when configured)" >> $GITHUB_STEP_SUMMARY
