@@ -25,11 +25,9 @@ class AppTheme {
       onError: Colors.white,
       errorContainer: AppColors.errorLight,
       onErrorContainer: AppColors.errorDark,
-      background: AppColors.lightBackground,
-      onBackground: AppColors.lightTextPrimary,
       surface: AppColors.lightBackground,
       onSurface: AppColors.lightTextPrimary,
-      surfaceVariant: AppColors.lightBackgroundSecondary,
+      surfaceContainerHighest: AppColors.lightBackgroundSecondary,
       onSurfaceVariant: AppColors.lightTextSecondary,
       outline: AppColors.lightBorder,
       outlineVariant: AppColors.lightBorderLight,
@@ -57,7 +55,7 @@ class AppTheme {
     // Card Theme
     // Note: Light mode uses elevation shadows for card separation
     // No border needed as cards stand out well against light backgrounds
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: AppColors.lightBackground,
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -342,11 +340,9 @@ class AppTheme {
       onError: AppColors.darkBackground,
       errorContainer: AppColors.error,
       onErrorContainer: AppColors.errorLight,
-      background: AppColors.darkBackground,
-      onBackground: AppColors.darkTextPrimary,
       surface: AppColors.darkBackgroundSecondary,
       onSurface: AppColors.darkTextPrimary,
-      surfaceVariant: AppColors.darkBackgroundTertiary,
+      surfaceContainerHighest: AppColors.darkBackgroundTertiary,
       onSurfaceVariant: AppColors.darkTextSecondary,
       outline: AppColors.darkBorder,
       outlineVariant: AppColors.darkBorder,
@@ -374,7 +370,7 @@ class AppTheme {
     // Card Theme
     // Note: Dark mode uses border for better card separation against dark backgrounds
     // Light mode relies on elevation shadows for separation
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: AppColors.darkBackgroundSecondary,
       elevation: 2,
       shape: RoundedRectangleBorder(
