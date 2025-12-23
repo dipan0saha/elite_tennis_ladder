@@ -65,22 +65,21 @@ jobs:
           flags: unittests
           name: codecov-umbrella
 
-      - name: Test Report
-        uses: dorny/test-reporter@v1
-        if: success() || failure()
-        with:
-          name: Flutter Tests
-          path: 'test-results/*.xml'
-          reporter: java-junit
-          fail-on-error: false
-
       - name: Generate test summary
-        if: always()
+        if: success()
         run: |
           echo "### Test Results" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "✅ All tests passed" >> $GITHUB_STEP_SUMMARY
           echo "📊 Coverage report uploaded to Codecov" >> $GITHUB_STEP_SUMMARY
+          
+      - name: Generate test failure summary
+        if: failure()
+        run: |
+          echo "### Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "❌ Tests failed" >> $GITHUB_STEP_SUMMARY
+          echo "Please check the logs above for details" >> $GITHUB_STEP_SUMMARY
 
   build-android:
     name: Build Android APK
