@@ -60,6 +60,8 @@ class AppTheme {
     ),
     
     // Card Theme
+    // Note: Light mode uses elevation shadows for card separation
+    // No border needed as cards stand out well against light backgrounds
     cardTheme: CardTheme(
       color: AppColors.lightBackground,
       elevation: 2,
@@ -380,12 +382,14 @@ class AppTheme {
     ),
     
     // Card Theme
+    // Note: Dark mode uses border for better card separation against dark backgrounds
+    // Light mode relies on elevation shadows for separation
     cardTheme: CardTheme(
       color: AppColors.darkBackgroundSecondary,
       elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: const BorderSide(color: AppColors.darkBorder, width: 1),
+        side: const BorderSide(color: AppColors.darkBorder),
       ),
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
     ),
