@@ -17,8 +17,8 @@ void main() {
         ),
       );
 
-      // Verify app bar
-      expect(find.text('Elite Tennis Ladder'), findsOneWidget);
+      // Verify app bar - there are 2 "Elite Tennis Ladder" texts (title and card)
+      expect(find.text('Elite Tennis Ladder'), findsNWidgets(2));
       expect(find.byIcon(Icons.logout), findsOneWidget);
       expect(find.byIcon(Icons.person), findsOneWidget);
 
@@ -28,12 +28,11 @@ void main() {
       // Verify tennis icon
       expect(find.byIcon(Icons.sports_tennis), findsOneWidget);
 
-      // Verify coming soon message
-      expect(find.text('You are now logged in!'), findsOneWidget);
+      // Verify card with ladder information
+      expect(find.byType(Card), findsOneWidget);
       expect(
-        find.textContaining('placeholder home screen'),
-        findsOneWidget,
-      );
+          find.text('Join ladders, challenge players, and climb the rankings!'),
+          findsOneWidget);
     });
 
     testWidgets('should display user email when available',
@@ -182,8 +181,12 @@ void main() {
       // Find Card widget
       expect(find.byType(Card), findsOneWidget);
 
-      // Verify card content
-      expect(find.text('You are now logged in!'), findsOneWidget);
+      // Verify card content - the card shows "Elite Tennis Ladder" and description
+      expect(find.text('Elite Tennis Ladder'),
+          findsNWidgets(2)); // One in app bar, one in card
+      expect(
+          find.text('Join ladders, challenge players, and climb the rankings!'),
+          findsOneWidget);
     });
 
     testWidgets('should handle hot reload gracefully',
