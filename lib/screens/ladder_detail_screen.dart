@@ -202,24 +202,32 @@ class _LadderDetailScreenState extends State<LadderDetailScreen> {
                 )
               : _buildContent(),
       floatingActionButton: _isMember && _ladder != null
-          ? FloatingActionButton.extended(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChallengeCreateScreen(
-                      ladderId: widget.ladderId,
-                      myRank: _myRank ?? 999,
-                      members: _members,
-                      profiles: _profiles,
-                      challengeRange: _ladder!.challengeRange,
-                    ),
-                  ),
+          ? Builder(builder: (context) {
+              final width = MediaQuery.of(context).size.width;
+              final route = MaterialPageRoute(
+                builder: (context) => ChallengeCreateScreen(
+                  ladderId: widget.ladderId,
+                  myRank: _myRank ?? 999,
+                  members: _members,
+                  profiles: _profiles,
+                  challengeRange: _ladder!.challengeRange,
+                ),
+              );
+
+              if (width > 420) {
+                return FloatingActionButton.extended(
+                  onPressed: () => Navigator.push(context, route),
+                  icon: const Icon(Icons.emoji_events),
+                  label: const Text('Create Challenge'),
                 );
-              },
-              icon: const Icon(Icons.emoji_events),
-              label: const Text('Create Challenge'),
-            )
+              }
+
+              return FloatingActionButton(
+                onPressed: () => Navigator.push(context, route),
+                tooltip: 'Create Challenge',
+                child: const Icon(Icons.emoji_events),
+              );
+            })
           : null,
     );
   }
