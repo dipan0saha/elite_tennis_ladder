@@ -9,9 +9,13 @@ void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   group('Authentication Flow Integration Tests', () {
+    // ignore: no_leading_underscores_for_local_identifiers
     late final String _supabaseUrl;
+    // ignore: no_leading_underscores_for_local_identifiers
     late final String _supabaseAnonKey;
+    // ignore: no_leading_underscores_for_local_identifiers
     late final String _testEmail;
+    // ignore: no_leading_underscores_for_local_identifiers
     late final String _testPassword;
 
     setUpAll(() async {

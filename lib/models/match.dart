@@ -13,7 +13,7 @@ class Match {
   final DateTime? completedAt;
   final String? location;
   final String? courtSurface;
-  
+
   // Score details
   final int? player1Set1Score;
   final int? player1Set2Score;
@@ -21,13 +21,13 @@ class Match {
   final int? player2Set1Score;
   final int? player2Set2Score;
   final int? player2Set3Score;
-  
+
   // Verification
   final bool player1Verified;
   final bool player2Verified;
   final DateTime? player1VerifiedAt;
   final DateTime? player2VerifiedAt;
-  
+
   // Dispute
   final String? disputedBy;
   final String? disputeReason;
@@ -35,7 +35,7 @@ class Match {
   final DateTime? disputedAt;
   final DateTime? disputeResolvedAt;
   final String? disputeResolution;
-  
+
   final String? notes;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -84,13 +84,13 @@ class Match {
       player2Id: json['player2_id'] as String,
       winnerId: json['winner_id'] as String?,
       status: json['status'] as String? ?? 'scheduled',
-      scheduledAt: json['scheduled_at'] != null 
+      scheduledAt: json['scheduled_at'] != null
           ? DateTime.parse(json['scheduled_at'] as String)
           : null,
-      startedAt: json['started_at'] != null 
+      startedAt: json['started_at'] != null
           ? DateTime.parse(json['started_at'] as String)
           : null,
-      completedAt: json['completed_at'] != null 
+      completedAt: json['completed_at'] != null
           ? DateTime.parse(json['completed_at'] as String)
           : null,
       location: json['location'] as String?,
@@ -103,19 +103,19 @@ class Match {
       player2Set3Score: json['player2_set3_score'] as int?,
       player1Verified: json['player1_verified'] as bool? ?? false,
       player2Verified: json['player2_verified'] as bool? ?? false,
-      player1VerifiedAt: json['player1_verified_at'] != null 
+      player1VerifiedAt: json['player1_verified_at'] != null
           ? DateTime.parse(json['player1_verified_at'] as String)
           : null,
-      player2VerifiedAt: json['player2_verified_at'] != null 
+      player2VerifiedAt: json['player2_verified_at'] != null
           ? DateTime.parse(json['player2_verified_at'] as String)
           : null,
       disputedBy: json['disputed_by'] as String?,
       disputeReason: json['dispute_reason'] as String?,
       disputeEvidenceUrl: json['dispute_evidence_url'] as String?,
-      disputedAt: json['disputed_at'] != null 
+      disputedAt: json['disputed_at'] != null
           ? DateTime.parse(json['disputed_at'] as String)
           : null,
-      disputeResolvedAt: json['dispute_resolved_at'] != null 
+      disputeResolvedAt: json['dispute_resolved_at'] != null
           ? DateTime.parse(json['dispute_resolved_at'] as String)
           : null,
       disputeResolution: json['dispute_resolution'] as String?,
@@ -180,24 +180,42 @@ class Match {
   /// Get total sets won by player 1
   int get player1SetsWon {
     int sets = 0;
-    if (player1Set1Score != null && player2Set1Score != null && 
-        player1Set1Score! > player2Set1Score!) sets++;
-    if (player1Set2Score != null && player2Set2Score != null && 
-        player1Set2Score! > player2Set2Score!) sets++;
-    if (player1Set3Score != null && player2Set3Score != null && 
-        player1Set3Score! > player2Set3Score!) sets++;
+    if (player1Set1Score != null &&
+        player2Set1Score != null &&
+        player1Set1Score! > player2Set1Score!) {
+      sets++;
+    }
+    if (player1Set2Score != null &&
+        player2Set2Score != null &&
+        player1Set2Score! > player2Set2Score!) {
+      sets++;
+    }
+    if (player1Set3Score != null &&
+        player2Set3Score != null &&
+        player1Set3Score! > player2Set3Score!) {
+      sets++;
+    }
     return sets;
   }
 
   /// Get total sets won by player 2
   int get player2SetsWon {
     int sets = 0;
-    if (player1Set1Score != null && player2Set1Score != null && 
-        player2Set1Score! > player1Set1Score!) sets++;
-    if (player1Set2Score != null && player2Set2Score != null && 
-        player2Set2Score! > player1Set2Score!) sets++;
-    if (player1Set3Score != null && player2Set3Score != null && 
-        player2Set3Score! > player1Set3Score!) sets++;
+    if (player1Set1Score != null &&
+        player2Set1Score != null &&
+        player2Set1Score! > player1Set1Score!) {
+      sets++;
+    }
+    if (player1Set2Score != null &&
+        player2Set2Score != null &&
+        player2Set2Score! > player1Set2Score!) {
+      sets++;
+    }
+    if (player1Set3Score != null &&
+        player2Set3Score != null &&
+        player2Set3Score! > player1Set3Score!) {
+      sets++;
+    }
     return sets;
   }
 }

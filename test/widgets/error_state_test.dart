@@ -20,7 +20,8 @@ void main() {
       expect(find.text('Something went wrong'), findsOneWidget);
     });
 
-    testWidgets('displays retry button when onRetry is provided', (WidgetTester tester) async {
+    testWidgets('displays retry button when onRetry is provided',
+        (WidgetTester tester) async {
       bool retryCalled = false;
 
       await tester.pumpWidget(
@@ -42,7 +43,8 @@ void main() {
       expect(retryCalled, isTrue);
     });
 
-    testWidgets('does not display retry button when onRetry is not provided', (WidgetTester tester) async {
+    testWidgets('does not display retry button when onRetry is not provided',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(

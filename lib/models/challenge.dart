@@ -42,13 +42,13 @@ class Challenge {
       message: json['message'] as String?,
       declineReason: json['decline_reason'] as String?,
       cancellationReason: json['cancellation_reason'] as String?,
-      expiresAt: json['expires_at'] != null 
+      expiresAt: json['expires_at'] != null
           ? DateTime.parse(json['expires_at'] as String)
           : null,
-      respondedAt: json['responded_at'] != null 
+      respondedAt: json['responded_at'] != null
           ? DateTime.parse(json['responded_at'] as String)
           : null,
-      completedAt: json['completed_at'] != null 
+      completedAt: json['completed_at'] != null
           ? DateTime.parse(json['completed_at'] as String)
           : null,
       createdAt: DateTime.parse(json['created_at'] as String),

@@ -14,10 +14,10 @@ class _CreateLadderScreenState extends State<CreateLadderScreen> {
   final _formKey = GlobalKey<FormState>();
   final LadderService _ladderService = LadderService();
   final AuthService _authService = AuthService();
-  
+
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  
+
   String _visibility = 'public';
   int _maxPlayers = 100;
   int _challengeRange = 3;
@@ -25,7 +25,7 @@ class _CreateLadderScreenState extends State<CreateLadderScreen> {
   int _challengeCooldownDays = 14;
   int _challengeResponseDays = 7;
   String _scoringSystem = 'swap';
-  
+
   bool _isLoading = false;
 
   @override
@@ -44,7 +44,8 @@ class _CreateLadderScreenState extends State<CreateLadderScreen> {
     if (userId == null) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('You must be logged in to create a ladder')),
+          const SnackBar(
+              content: Text('You must be logged in to create a ladder')),
         );
       }
       return;
@@ -55,8 +56,8 @@ class _CreateLadderScreenState extends State<CreateLadderScreen> {
     try {
       await _ladderService.createLadder(
         name: _nameController.text.trim(),
-        description: _descriptionController.text.trim().isEmpty 
-            ? null 
+        description: _descriptionController.text.trim().isEmpty
+            ? null
             : _descriptionController.text.trim(),
         adminId: userId,
         visibility: _visibility,
@@ -138,7 +139,7 @@ class _CreateLadderScreenState extends State<CreateLadderScreen> {
             ),
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
-              value: _visibility,
+              initialValue: _visibility,
               decoration: const InputDecoration(
                 labelText: 'Visibility',
                 border: OutlineInputBorder(),
@@ -147,7 +148,8 @@ class _CreateLadderScreenState extends State<CreateLadderScreen> {
               items: const [
                 DropdownMenuItem(value: 'public', child: Text('Public')),
                 DropdownMenuItem(value: 'private', child: Text('Private')),
-                DropdownMenuItem(value: 'invite_only', child: Text('Invite Only')),
+                DropdownMenuItem(
+                    value: 'invite_only', child: Text('Invite Only')),
               ],
               onChanged: (value) {
                 setState(() => _visibility = value!);
@@ -155,7 +157,7 @@ class _CreateLadderScreenState extends State<CreateLadderScreen> {
             ),
 
             const SizedBox(height: 32),
-            
+
             // Challenge Rules Section
             Text(
               'Challenge Rules',
@@ -176,7 +178,8 @@ class _CreateLadderScreenState extends State<CreateLadderScreen> {
               min: 1,
               max: 10,
               divisions: 9,
-              onChanged: (value) => setState(() => _challengeRange = value.toInt()),
+              onChanged: (value) =>
+                  setState(() => _challengeRange = value.toInt()),
             ),
             _buildSliderField(
               label: 'Max Concurrent Challenges',
@@ -184,7 +187,8 @@ class _CreateLadderScreenState extends State<CreateLadderScreen> {
               min: 1,
               max: 5,
               divisions: 4,
-              onChanged: (value) => setState(() => _maxConcurrentChallenges = value.toInt()),
+              onChanged: (value) =>
+                  setState(() => _maxConcurrentChallenges = value.toInt()),
             ),
             _buildSliderField(
               label: 'Challenge Cooldown (days)',
@@ -192,7 +196,8 @@ class _CreateLadderScreenState extends State<CreateLadderScreen> {
               min: 0,
               max: 30,
               divisions: 30,
-              onChanged: (value) => setState(() => _challengeCooldownDays = value.toInt()),
+              onChanged: (value) =>
+                  setState(() => _challengeCooldownDays = value.toInt()),
             ),
             _buildSliderField(
               label: 'Challenge Response Time (days)',
@@ -200,11 +205,12 @@ class _CreateLadderScreenState extends State<CreateLadderScreen> {
               min: 1,
               max: 14,
               divisions: 13,
-              onChanged: (value) => setState(() => _challengeResponseDays = value.toInt()),
+              onChanged: (value) =>
+                  setState(() => _challengeResponseDays = value.toInt()),
             ),
 
             const SizedBox(height: 32),
-            
+
             // Scoring System Section
             Text(
               'Scoring System',
@@ -212,14 +218,16 @@ class _CreateLadderScreenState extends State<CreateLadderScreen> {
             ),
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
-              value: _scoringSystem,
+              initialValue: _scoringSystem,
               decoration: const InputDecoration(
                 labelText: 'Scoring System',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.emoji_events),
               ),
               items: const [
-                DropdownMenuItem(value: 'swap', child: Text('Swap (Winner takes loser\'s rank)')),
+                DropdownMenuItem(
+                    value: 'swap',
+                    child: Text('Swap (Winner takes loser\'s rank)')),
                 DropdownMenuItem(value: 'points', child: Text('Points Based')),
                 DropdownMenuItem(value: 'elo', child: Text('ELO Rating')),
               ],
@@ -229,7 +237,7 @@ class _CreateLadderScreenState extends State<CreateLadderScreen> {
             ),
 
             const SizedBox(height: 32),
-            
+
             // Create Button
             ElevatedButton(
               onPressed: _isLoading ? null : _createLadder,

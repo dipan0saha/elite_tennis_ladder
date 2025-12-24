@@ -14,9 +14,7 @@ class MatchService {
           .eq('ladder_id', ladderId)
           .order('created_at', ascending: false);
 
-      return (response as List)
-          .map((json) => Match.fromJson(json as Map<String, dynamic>))
-          .toList();
+      return (response as List).map((json) => Match.fromJson(json)).toList();
     } catch (e) {
       throw Exception('Failed to load ladder matches: $e');
     }
@@ -31,9 +29,7 @@ class MatchService {
           .or('player1_id.eq.$playerId,player2_id.eq.$playerId')
           .order('created_at', ascending: false);
 
-      return (response as List)
-          .map((json) => Match.fromJson(json as Map<String, dynamic>))
-          .toList();
+      return (response as List).map((json) => Match.fromJson(json)).toList();
     } catch (e) {
       throw Exception('Failed to load player matches: $e');
     }
@@ -42,13 +38,10 @@ class MatchService {
   /// Get a single match by ID
   Future<Match?> getMatch(String matchId) async {
     try {
-      final response = await _supabase
-          .from('matches')
-          .select()
-          .eq('id', matchId)
-          .single();
+      final response =
+          await _supabase.from('matches').select().eq('id', matchId).single();
 
-      return Match.fromJson(response as Map<String, dynamic>);
+      return Match.fromJson(response);
     } catch (e) {
       throw Exception('Failed to load match: $e');
     }
@@ -78,7 +71,7 @@ class MatchService {
           .select()
           .single();
 
-      return Match.fromJson(response as Map<String, dynamic>);
+      return Match.fromJson(response);
     } catch (e) {
       throw Exception('Failed to create match: $e');
     }
@@ -112,7 +105,7 @@ class MatchService {
           .select()
           .single();
 
-      return Match.fromJson(response as Map<String, dynamic>);
+      return Match.fromJson(response);
     } catch (e) {
       throw Exception('Failed to report score: $e');
     }
@@ -146,7 +139,7 @@ class MatchService {
           .select()
           .single();
 
-      return Match.fromJson(response as Map<String, dynamic>);
+      return Match.fromJson(response);
     } catch (e) {
       throw Exception('Failed to verify score: $e');
     }
@@ -173,7 +166,7 @@ class MatchService {
           .select()
           .single();
 
-      return Match.fromJson(response as Map<String, dynamic>);
+      return Match.fromJson(response);
     } catch (e) {
       throw Exception('Failed to dispute score: $e');
     }
@@ -196,7 +189,7 @@ class MatchService {
           .select()
           .single();
 
-      return Match.fromJson(response as Map<String, dynamic>);
+      return Match.fromJson(response);
     } catch (e) {
       throw Exception('Failed to resolve dispute: $e');
     }
@@ -212,7 +205,7 @@ class MatchService {
           .select()
           .single();
 
-      return Match.fromJson(response as Map<String, dynamic>);
+      return Match.fromJson(response);
     } catch (e) {
       throw Exception('Failed to cancel match: $e');
     }
@@ -222,7 +215,7 @@ class MatchService {
   Future<Map<String, int>> getPlayerStats(String playerId) async {
     try {
       final matches = await getPlayerMatches(playerId);
-      
+
       int wins = 0;
       int losses = 0;
       int total = 0;

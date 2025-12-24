@@ -27,7 +27,7 @@ class _LadderDetailScreenState extends State<LadderDetailScreen> {
   final LadderService _ladderService = LadderService();
   final ProfileService _profileService = ProfileService();
   final AuthService _authService = AuthService();
-  
+
   Ladder? _ladder;
   List<LadderMember> _members = [];
   Map<String, UserProfile> _profiles = {};
@@ -50,11 +50,11 @@ class _LadderDetailScreenState extends State<LadderDetailScreen> {
 
     try {
       final userId = _authService.currentUser?.id;
-      
+
       // Load ladder and members
       final ladder = await _ladderService.getLadder(widget.ladderId);
       final members = await _ladderService.getLadderMembers(widget.ladderId);
-      
+
       // Load profiles for all members concurrently
       final Map<String, UserProfile> profiles = {};
       final profileFutures = members.map((member) async {
@@ -262,9 +262,12 @@ class _LadderDetailScreenState extends State<LadderDetailScreen> {
                     Expanded(
                       child: Text(
                         'Your Rank: #${_myRank ?? "N/A"}',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              color: Theme.of(context).colorScheme.onPrimaryContainer,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer,
+                                ),
                       ),
                     ),
                     TextButton(
@@ -304,10 +307,14 @@ class _LadderDetailScreenState extends State<LadderDetailScreen> {
               ),
               const Divider(height: 24),
             ],
-            _buildInfoRow(Icons.people, 'Max Players', _ladder!.maxPlayers.toString()),
-            _buildInfoRow(Icons.trending_up, 'Challenge Range', _ladder!.challengeRange.toString()),
-            _buildInfoRow(Icons.emoji_events, 'Scoring', _formatScoringSystem(_ladder!.scoringSystem)),
-            _buildInfoRow(Icons.timer, 'Response Time', '${_ladder!.challengeResponseDays} days'),
+            _buildInfoRow(
+                Icons.people, 'Max Players', _ladder!.maxPlayers.toString()),
+            _buildInfoRow(Icons.trending_up, 'Challenge Range',
+                _ladder!.challengeRange.toString()),
+            _buildInfoRow(Icons.emoji_events, 'Scoring',
+                _formatScoringSystem(_ladder!.scoringSystem)),
+            _buildInfoRow(Icons.timer, 'Response Time',
+                '${_ladder!.challengeResponseDays} days'),
           ],
         ),
       ),
@@ -357,8 +364,11 @@ class _LadderDetailScreenState extends State<LadderDetailScreen> {
 
     return Card(
       margin: const EdgeInsets.only(bottom: 8.0),
-      color: isCurrentUser 
-          ? Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3)
+      color: isCurrentUser
+          ? Theme.of(context)
+              .colorScheme
+              .primaryContainer
+              .withValues(alpha: 0.3)
           : null,
       child: ListTile(
         leading: CircleAvatar(
@@ -380,9 +390,8 @@ class _LadderDetailScreenState extends State<LadderDetailScreen> {
         subtitle: Text(
           'W: ${member.wins ?? 0} | L: ${member.losses ?? 0}${member.winRate != null ? " | ${(member.winRate! * 100).toStringAsFixed(0)}%" : ""}',
         ),
-        trailing: isCurrentUser
-            ? const Icon(Icons.star, color: Colors.amber)
-            : null,
+        trailing:
+            isCurrentUser ? const Icon(Icons.star, color: Colors.amber) : null,
       ),
     );
   }

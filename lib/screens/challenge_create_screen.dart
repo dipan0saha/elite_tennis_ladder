@@ -29,9 +29,9 @@ class _ChallengeCreateScreenState extends State<ChallengeCreateScreen> {
   final _formKey = GlobalKey<FormState>();
   final ChallengeService _challengeService = ChallengeService();
   final AuthService _authService = AuthService();
-  
+
   final TextEditingController _messageController = TextEditingController();
-  
+
   String? _selectedOpponentId;
   bool _isLoading = false;
 
@@ -43,8 +43,8 @@ class _ChallengeCreateScreenState extends State<ChallengeCreateScreen> {
     return widget.members.where((member) {
       if (member.playerId == userId) return false;
       // Can challenge players above you within the ladder's challenge range
-      return member.rank < widget.myRank && 
-             (widget.myRank - member.rank) <= widget.challengeRange;
+      return member.rank < widget.myRank &&
+          (widget.myRank - member.rank) <= widget.challengeRange;
     }).toList();
   }
 
@@ -76,8 +76,8 @@ class _ChallengeCreateScreenState extends State<ChallengeCreateScreen> {
         ladderId: widget.ladderId,
         challengerId: userId,
         opponentId: _selectedOpponentId!,
-        message: _messageController.text.trim().isEmpty 
-            ? null 
+        message: _messageController.text.trim().isEmpty
+            ? null
             : _messageController.text.trim(),
       );
 
@@ -132,7 +132,8 @@ class _ChallengeCreateScreenState extends State<ChallengeCreateScreen> {
                       child: Text(
                         'You can challenge players ranked above you',
                         style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimaryContainer,
+                          color:
+                              Theme.of(context).colorScheme.onPrimaryContainer,
                         ),
                       ),
                     ),
@@ -176,15 +177,18 @@ class _ChallengeCreateScreenState extends State<ChallengeCreateScreen> {
               ..._availableOpponents.map((member) {
                 final profile = widget.profiles[member.playerId];
                 final isSelected = _selectedOpponentId == member.playerId;
-                
+
                 return Card(
                   margin: const EdgeInsets.only(bottom: 8.0),
-                  color: isSelected 
+                  color: isSelected
                       ? Theme.of(context).colorScheme.primaryContainer
                       : null,
                   child: RadioListTile<String>(
+                    // ignore: deprecated_member_use
                     value: member.playerId,
+                    // ignore: deprecated_member_use
                     groupValue: _selectedOpponentId,
+                    // ignore: deprecated_member_use
                     onChanged: (value) {
                       setState(() => _selectedOpponentId = value);
                     },
@@ -207,7 +211,9 @@ class _ChallengeCreateScreenState extends State<ChallengeCreateScreen> {
                           child: Text(
                             profile?.fullName ?? 'Unknown Player',
                             style: TextStyle(
-                              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                              fontWeight: isSelected
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
                             ),
                           ),
                         ),
@@ -239,7 +245,9 @@ class _ChallengeCreateScreenState extends State<ChallengeCreateScreen> {
             ),
             const SizedBox(height: 32),
             ElevatedButton(
-              onPressed: _isLoading || _availableOpponents.isEmpty ? null : _createChallenge,
+              onPressed: _isLoading || _availableOpponents.isEmpty
+                  ? null
+                  : _createChallenge,
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(16.0),
               ),

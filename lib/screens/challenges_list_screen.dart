@@ -17,11 +17,12 @@ class ChallengesListScreen extends StatefulWidget {
   State<ChallengesListScreen> createState() => _ChallengesListScreenState();
 }
 
-class _ChallengesListScreenState extends State<ChallengesListScreen> with SingleTickerProviderStateMixin {
+class _ChallengesListScreenState extends State<ChallengesListScreen>
+    with SingleTickerProviderStateMixin {
   final ChallengeService _challengeService = ChallengeService();
   final ProfileService _profileService = ProfileService();
   final AuthService _authService = AuthService();
-  
+
   late TabController _tabController;
   List<Challenge> _pendingChallenges = [];
   List<Challenge> _sentChallenges = [];
@@ -61,9 +62,9 @@ class _ChallengesListScreenState extends State<ChallengesListScreen> with Single
         _challengeService.getReceivedChallenges(userId),
       ]);
 
-      final pending = results[0] as List<Challenge>;
-      final sent = results[1] as List<Challenge>;
-      final received = results[2] as List<Challenge>;
+      final pending = results[0];
+      final sent = results[1];
+      final received = results[2];
 
       // Collect all unique user IDs
       final userIds = <String>{};
@@ -248,15 +249,19 @@ class _ChallengesListScreenState extends State<ChallengesListScreen> with Single
               : TabBarView(
                   controller: _tabController,
                   children: [
-                    _buildChallengeList(_pendingChallenges, 'No pending challenges', true),
-                    _buildChallengeList(_sentChallenges, 'No sent challenges', false),
-                    _buildChallengeList(_receivedChallenges, 'No received challenges', false),
+                    _buildChallengeList(
+                        _pendingChallenges, 'No pending challenges', true),
+                    _buildChallengeList(
+                        _sentChallenges, 'No sent challenges', false),
+                    _buildChallengeList(
+                        _receivedChallenges, 'No received challenges', false),
                   ],
                 ),
     );
   }
 
-  Widget _buildChallengeList(List<Challenge> challenges, String emptyMessage, bool showActions) {
+  Widget _buildChallengeList(
+      List<Challenge> challenges, String emptyMessage, bool showActions) {
     if (challenges.isEmpty) {
       return EmptyState(
         icon: Icons.emoji_events,
@@ -281,7 +286,8 @@ class _ChallengesListScreenState extends State<ChallengesListScreen> with Single
   Widget _buildChallengeCard(Challenge challenge, bool showActions) {
     final userId = _authService.currentUser?.id;
     final isChallenger = challenge.challengerId == userId;
-    final otherUserId = isChallenger ? challenge.opponentId : challenge.challengerId;
+    final otherUserId =
+        isChallenger ? challenge.opponentId : challenge.challengerId;
     final otherProfile = _profiles[otherUserId];
 
     return Card(
@@ -295,7 +301,7 @@ class _ChallengesListScreenState extends State<ChallengesListScreen> with Single
               children: [
                 Expanded(
                   child: Text(
-                    isChallenger 
+                    isChallenger
                         ? 'To: ${otherProfile?.fullName ?? "Unknown"}'
                         : 'From: ${otherProfile?.fullName ?? "Unknown"}',
                     style: Theme.of(context).textTheme.titleMedium,
@@ -316,7 +322,9 @@ class _ChallengesListScreenState extends State<ChallengesListScreen> with Single
             const SizedBox(height: 8),
             Row(
               children: [
-                Icon(Icons.access_time, size: 16, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                Icon(Icons.access_time,
+                    size: 16,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant),
                 const SizedBox(width: 4),
                 Text(
                   _formatDate(challenge.createdAt),
@@ -324,7 +332,9 @@ class _ChallengesListScreenState extends State<ChallengesListScreen> with Single
                 ),
                 if (challenge.expiresAt != null) ...[
                   const SizedBox(width: 16),
-                  Icon(Icons.event, size: 16, color: Theme.of(context).colorScheme.onSurfaceVariant),
+                  Icon(Icons.event,
+                      size: 16,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant),
                   const SizedBox(width: 4),
                   Text(
                     'Expires: ${_formatDate(challenge.expiresAt!)}',
@@ -333,7 +343,9 @@ class _ChallengesListScreenState extends State<ChallengesListScreen> with Single
                 ],
               ],
             ),
-            if (showActions && challenge.status == 'pending' && !isChallenger) ...[
+            if (showActions &&
+                challenge.status == 'pending' &&
+                !isChallenger) ...[
               const SizedBox(height: 12),
               Row(
                 children: [
@@ -365,7 +377,7 @@ class _ChallengesListScreenState extends State<ChallengesListScreen> with Single
                 onPressed: () async {
                   final challengerProfile = _profiles[challenge.challengerId];
                   final opponentProfile = _profiles[challenge.opponentId];
-                  
+
                   final result = await Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -379,7 +391,7 @@ class _ChallengesListScreenState extends State<ChallengesListScreen> with Single
                       ),
                     ),
                   );
-                  
+
                   if (result == true) {
                     _loadChallenges();
                   }
@@ -400,17 +412,19 @@ class _ChallengesListScreenState extends State<ChallengesListScreen> with Single
                 label: const Text('Cancel Challenge'),
               ),
             ],
-            if (challenge.status == 'declined' && challenge.declineReason != null) ...[
+            if (challenge.status == 'declined' &&
+                challenge.declineReason != null) ...[
               const SizedBox(height: 12),
               Container(
                 padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
-                  color: Colors.orange.withOpacity(0.1),
+                  color: Colors.orange.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(4.0),
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.info_outline, size: 16, color: Colors.orange),
+                    const Icon(Icons.info_outline,
+                        size: 16, color: Colors.orange),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
@@ -431,7 +445,7 @@ class _ChallengesListScreenState extends State<ChallengesListScreen> with Single
   Widget _buildStatusChip(String status) {
     Color color;
     IconData icon;
-    
+
     switch (status) {
       case 'pending':
         color = Colors.orange;
@@ -468,7 +482,7 @@ class _ChallengesListScreenState extends State<ChallengesListScreen> with Single
         status.toUpperCase(),
         style: TextStyle(fontSize: 10, color: color),
       ),
-      backgroundColor: color.withOpacity(0.1),
+      backgroundColor: color.withValues(alpha: 0.1),
       padding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,
     );

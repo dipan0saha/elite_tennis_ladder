@@ -35,7 +35,7 @@ class LadderMember {
       playerId: json['player_id'] as String,
       rank: json['rank'] as int,
       status: json['status'] as String? ?? 'active',
-      lastMatchDate: json['last_match_date'] != null 
+      lastMatchDate: json['last_match_date'] != null
           ? DateTime.parse(json['last_match_date'] as String)
           : null,
       wins: json['wins'] as int? ?? 0,

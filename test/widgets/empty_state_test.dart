@@ -4,7 +4,8 @@ import 'package:elite_tennis_ladder/widgets/empty_state.dart';
 
 void main() {
   group('EmptyState Widget Tests', () {
-    testWidgets('displays icon, title, and message', (WidgetTester tester) async {
+    testWidgets('displays icon, title, and message',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
@@ -22,7 +23,8 @@ void main() {
       expect(find.text('There are no items to display'), findsOneWidget);
     });
 
-    testWidgets('displays action button when provided', (WidgetTester tester) async {
+    testWidgets('displays action button when provided',
+        (WidgetTester tester) async {
       bool actionCalled = false;
 
       await tester.pumpWidget(
@@ -49,7 +51,8 @@ void main() {
       expect(actionCalled, isTrue);
     });
 
-    testWidgets('does not display action button when not provided', (WidgetTester tester) async {
+    testWidgets('does not display action button when not provided',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(

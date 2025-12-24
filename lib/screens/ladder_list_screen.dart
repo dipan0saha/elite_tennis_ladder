@@ -16,10 +16,11 @@ class LadderListScreen extends StatefulWidget {
   State<LadderListScreen> createState() => _LadderListScreenState();
 }
 
-class _LadderListScreenState extends State<LadderListScreen> with SingleTickerProviderStateMixin {
+class _LadderListScreenState extends State<LadderListScreen>
+    with SingleTickerProviderStateMixin {
   final LadderService _ladderService = LadderService();
   final AuthService _authService = AuthService();
-  
+
   late TabController _tabController;
   List<Ladder> _publicLadders = [];
   List<Ladder> _myLadders = [];
@@ -48,7 +49,7 @@ class _LadderListScreenState extends State<LadderListScreen> with SingleTickerPr
 
     try {
       final userId = _authService.currentUser?.id;
-      
+
       final results = await Future.wait([
         _ladderService.getPublicLadders(),
         if (userId != null) _ladderService.getMyLadders(userId),
@@ -57,12 +58,12 @@ class _LadderListScreenState extends State<LadderListScreen> with SingleTickerPr
 
       if (mounted) {
         setState(() {
-          _publicLadders = results[0] as List<Ladder>;
+          _publicLadders = results[0];
           if (userId != null && results.length > 1) {
-            _myLadders = results[1] as List<Ladder>;
+            _myLadders = results[1];
           }
           if (userId != null && results.length > 2) {
-            _joinedLadders = results[2] as List<Ladder>;
+            _joinedLadders = results[2];
           }
           _isLoading = false;
         });
@@ -123,9 +124,12 @@ class _LadderListScreenState extends State<LadderListScreen> with SingleTickerPr
               : TabBarView(
                   controller: _tabController,
                   children: [
-                    _buildLadderList(_publicLadders, 'No public ladders available'),
-                    _buildLadderList(_myLadders, 'You haven\'t created any ladders yet'),
-                    _buildLadderList(_joinedLadders, 'You haven\'t joined any ladders yet'),
+                    _buildLadderList(
+                        _publicLadders, 'No public ladders available'),
+                    _buildLadderList(
+                        _myLadders, 'You haven\'t created any ladders yet'),
+                    _buildLadderList(
+                        _joinedLadders, 'You haven\'t joined any ladders yet'),
                   ],
                 ),
     );
@@ -238,7 +242,7 @@ class _LadderListScreenState extends State<LadderListScreen> with SingleTickerPr
   Widget _buildVisibilityChip(String visibility) {
     IconData icon;
     Color color;
-    
+
     switch (visibility) {
       case 'public':
         icon = Icons.public;
@@ -263,7 +267,7 @@ class _LadderListScreenState extends State<LadderListScreen> with SingleTickerPr
         visibility.toUpperCase(),
         style: TextStyle(fontSize: 10, color: color),
       ),
-      backgroundColor: color.withOpacity(0.1),
+      backgroundColor: color.withValues(alpha: 0.1),
       padding: EdgeInsets.zero,
       visualDensity: VisualDensity.compact,
     );

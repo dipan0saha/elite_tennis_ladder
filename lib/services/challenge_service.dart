@@ -32,7 +32,7 @@ class ChallengeService {
           .order('created_at', ascending: false);
 
       return (response as List)
-          .map((json) => Challenge.fromJson(json as Map<String, dynamic>))
+          .map((json) => Challenge.fromJson(json))
           .toList();
     } catch (e) {
       throw Exception('Failed to load your challenges: $e');
@@ -49,7 +49,7 @@ class ChallengeService {
           .order('created_at', ascending: false);
 
       return (response as List)
-          .map((json) => Challenge.fromJson(json as Map<String, dynamic>))
+          .map((json) => Challenge.fromJson(json))
           .toList();
     } catch (e) {
       throw Exception('Failed to load received challenges: $e');
@@ -67,7 +67,7 @@ class ChallengeService {
           .order('created_at', ascending: false);
 
       return (response as List)
-          .map((json) => Challenge.fromJson(json as Map<String, dynamic>))
+          .map((json) => Challenge.fromJson(json))
           .toList();
     } catch (e) {
       throw Exception('Failed to load pending challenges: $e');
@@ -94,7 +94,7 @@ class ChallengeService {
           .select()
           .single();
 
-      return Challenge.fromJson(response as Map<String, dynamic>);
+      return Challenge.fromJson(response);
     } catch (e) {
       throw Exception('Failed to create challenge: $e');
     }
@@ -113,7 +113,7 @@ class ChallengeService {
           .select()
           .single();
 
-      return Challenge.fromJson(response as Map<String, dynamic>);
+      return Challenge.fromJson(response);
     } catch (e) {
       throw Exception('Failed to accept challenge: $e');
     }
@@ -133,7 +133,7 @@ class ChallengeService {
           .select()
           .single();
 
-      return Challenge.fromJson(response as Map<String, dynamic>);
+      return Challenge.fromJson(response);
     } catch (e) {
       throw Exception('Failed to decline challenge: $e');
     }
@@ -152,7 +152,7 @@ class ChallengeService {
           .select()
           .single();
 
-      return Challenge.fromJson(response as Map<String, dynamic>);
+      return Challenge.fromJson(response);
     } catch (e) {
       throw Exception('Failed to cancel challenge: $e');
     }
@@ -171,7 +171,7 @@ class ChallengeService {
           .select()
           .single();
 
-      return Challenge.fromJson(response as Map<String, dynamic>);
+      return Challenge.fromJson(response);
     } catch (e) {
       throw Exception('Failed to complete challenge: $e');
     }
@@ -186,7 +186,7 @@ class ChallengeService {
           .eq('id', challengeId)
           .single();
 
-      return Challenge.fromJson(response as Map<String, dynamic>);
+      return Challenge.fromJson(response);
     } catch (e) {
       throw Exception('Failed to load challenge: $e');
     }

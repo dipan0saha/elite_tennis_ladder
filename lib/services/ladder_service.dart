@@ -16,9 +16,7 @@ class LadderService {
           .eq('is_active', true)
           .order('created_at', ascending: false);
 
-      return (response as List)
-          .map((json) => Ladder.fromJson(json as Map<String, dynamic>))
-          .toList();
+      return (response as List).map((json) => Ladder.fromJson(json)).toList();
     } catch (e) {
       throw Exception('Failed to load public ladders: $e');
     }
@@ -33,9 +31,7 @@ class LadderService {
           .eq('admin_id', userId)
           .order('created_at', ascending: false);
 
-      return (response as List)
-          .map((json) => Ladder.fromJson(json as Map<String, dynamic>))
-          .toList();
+      return (response as List).map((json) => Ladder.fromJson(json)).toList();
     } catch (e) {
       throw Exception('Failed to load your ladders: $e');
     }
@@ -51,7 +47,8 @@ class LadderService {
           .eq('status', 'active');
 
       return (response as List)
-          .map((json) => Ladder.fromJson(json['ladders'] as Map<String, dynamic>))
+          .map((json) =>
+              Ladder.fromJson(json['ladders'] as Map<String, dynamic>))
           .toList();
     } catch (e) {
       throw Exception('Failed to load joined ladders: $e');
@@ -61,13 +58,10 @@ class LadderService {
   /// Get a single ladder by ID
   Future<Ladder?> getLadder(String ladderId) async {
     try {
-      final response = await _supabase
-          .from('ladders')
-          .select()
-          .eq('id', ladderId)
-          .single();
+      final response =
+          await _supabase.from('ladders').select().eq('id', ladderId).single();
 
-      return Ladder.fromJson(response as Map<String, dynamic>);
+      return Ladder.fromJson(response);
     } catch (e) {
       throw Exception('Failed to load ladder: $e');
     }
@@ -104,14 +98,15 @@ class LadderService {
           .select()
           .single();
 
-      return Ladder.fromJson(response as Map<String, dynamic>);
+      return Ladder.fromJson(response);
     } catch (e) {
       throw Exception('Failed to create ladder: $e');
     }
   }
 
   /// Update an existing ladder
-  Future<Ladder> updateLadder(String ladderId, Map<String, dynamic> updates) async {
+  Future<Ladder> updateLadder(
+      String ladderId, Map<String, dynamic> updates) async {
     try {
       final response = await _supabase
           .from('ladders')
@@ -120,7 +115,7 @@ class LadderService {
           .select()
           .single();
 
-      return Ladder.fromJson(response as Map<String, dynamic>);
+      return Ladder.fromJson(response);
     } catch (e) {
       throw Exception('Failed to update ladder: $e');
     }
@@ -129,10 +124,7 @@ class LadderService {
   /// Delete a ladder
   Future<void> deleteLadder(String ladderId) async {
     try {
-      await _supabase
-          .from('ladders')
-          .delete()
-          .eq('id', ladderId);
+      await _supabase.from('ladders').delete().eq('id', ladderId);
     } catch (e) {
       throw Exception('Failed to delete ladder: $e');
     }
@@ -149,7 +141,7 @@ class LadderService {
           .order('rank', ascending: true);
 
       return (response as List)
-          .map((json) => LadderMember.fromJson(json as Map<String, dynamic>))
+          .map((json) => LadderMember.fromJson(json))
           .toList();
     } catch (e) {
       throw Exception('Failed to load ladder members: $e');
@@ -174,7 +166,7 @@ class LadderService {
           .select()
           .single();
 
-      return LadderMember.fromJson(response as Map<String, dynamic>);
+      return LadderMember.fromJson(response);
     } catch (e) {
       throw Exception('Failed to join ladder: $e');
     }

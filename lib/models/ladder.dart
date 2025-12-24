@@ -62,7 +62,8 @@ class Ladder {
       inactivityPenaltyDays: json['inactivity_penalty_days'] as int? ?? 60,
       inactivityAction: json['inactivity_action'] as String? ?? 'inactive_pool',
       scoringSystem: json['scoring_system'] as String? ?? 'swap',
-      requireScoreVerification: json['require_score_verification'] as bool? ?? true,
+      requireScoreVerification:
+          json['require_score_verification'] as bool? ?? true,
       allowScoreDisputes: json['allow_score_disputes'] as bool? ?? true,
       divisionsEnabled: json['divisions_enabled'] as bool? ?? false,
       isActive: json['is_active'] as bool? ?? true,
@@ -128,14 +129,20 @@ class Ladder {
       visibility: visibility ?? this.visibility,
       maxPlayers: maxPlayers ?? this.maxPlayers,
       challengeRange: challengeRange ?? this.challengeRange,
-      maxConcurrentChallenges: maxConcurrentChallenges ?? this.maxConcurrentChallenges,
-      challengeCooldownDays: challengeCooldownDays ?? this.challengeCooldownDays,
-      challengeResponseDays: challengeResponseDays ?? this.challengeResponseDays,
-      inactivityWarningDays: inactivityWarningDays ?? this.inactivityWarningDays,
-      inactivityPenaltyDays: inactivityPenaltyDays ?? this.inactivityPenaltyDays,
+      maxConcurrentChallenges:
+          maxConcurrentChallenges ?? this.maxConcurrentChallenges,
+      challengeCooldownDays:
+          challengeCooldownDays ?? this.challengeCooldownDays,
+      challengeResponseDays:
+          challengeResponseDays ?? this.challengeResponseDays,
+      inactivityWarningDays:
+          inactivityWarningDays ?? this.inactivityWarningDays,
+      inactivityPenaltyDays:
+          inactivityPenaltyDays ?? this.inactivityPenaltyDays,
       inactivityAction: inactivityAction ?? this.inactivityAction,
       scoringSystem: scoringSystem ?? this.scoringSystem,
-      requireScoreVerification: requireScoreVerification ?? this.requireScoreVerification,
+      requireScoreVerification:
+          requireScoreVerification ?? this.requireScoreVerification,
       allowScoreDisputes: allowScoreDisputes ?? this.allowScoreDisputes,
       divisionsEnabled: divisionsEnabled ?? this.divisionsEnabled,
       isActive: isActive ?? this.isActive,

@@ -4,7 +4,8 @@ import 'package:elite_tennis_ladder/widgets/loading_state.dart';
 
 void main() {
   group('LoadingState Widget Tests', () {
-    testWidgets('displays circular progress indicator', (WidgetTester tester) async {
+    testWidgets('displays circular progress indicator',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
@@ -31,7 +32,8 @@ void main() {
       expect(find.text('Loading data...'), findsOneWidget);
     });
 
-    testWidgets('does not display message when not provided', (WidgetTester tester) async {
+    testWidgets('does not display message when not provided',
+        (WidgetTester tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(

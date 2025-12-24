@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../services/match_service.dart';
 import '../services/challenge_service.dart';
+import '../services/auth_service.dart';
 
 /// Screen for reporting match scores
 class ReportScoreScreen extends StatefulWidget {
@@ -30,14 +31,15 @@ class _ReportScoreScreenState extends State<ReportScoreScreen> {
   final _formKey = GlobalKey<FormState>();
   final MatchService _matchService = MatchService();
   final ChallengeService _challengeService = ChallengeService();
-  
+  final AuthService _authService = AuthService();
+
   final TextEditingController _player1Set1Controller = TextEditingController();
   final TextEditingController _player2Set1Controller = TextEditingController();
   final TextEditingController _player1Set2Controller = TextEditingController();
   final TextEditingController _player2Set2Controller = TextEditingController();
   final TextEditingController _player1Set3Controller = TextEditingController();
   final TextEditingController _player2Set3Controller = TextEditingController();
-  
+
   bool _isLoading = false;
   bool _requireSet3 = false;
 
@@ -54,8 +56,10 @@ class _ReportScoreScreenState extends State<ReportScoreScreen> {
 
   bool _validateScores() {
     // Validate set 1 and 2 are filled
-    if (_player1Set1Controller.text.isEmpty || _player2Set1Controller.text.isEmpty ||
-        _player1Set2Controller.text.isEmpty || _player2Set2Controller.text.isEmpty) {
+    if (_player1Set1Controller.text.isEmpty ||
+        _player2Set1Controller.text.isEmpty ||
+        _player1Set2Controller.text.isEmpty ||
+        _player2Set2Controller.text.isEmpty) {
       return false;
     }
 
@@ -74,7 +78,8 @@ class _ReportScoreScreenState extends State<ReportScoreScreen> {
 
     if (player1Sets == 1 && player2Sets == 1) {
       setState(() => _requireSet3 = true);
-      if (_player1Set3Controller.text.isEmpty || _player2Set3Controller.text.isEmpty) {
+      if (_player1Set3Controller.text.isEmpty ||
+          _player2Set3Controller.text.isEmpty) {
         return false;
       }
     }
@@ -115,13 +120,14 @@ class _ReportScoreScreenState extends State<ReportScoreScreen> {
         player2Set1: int.parse(_player2Set1Controller.text),
         player1Set2: int.parse(_player1Set2Controller.text),
         player2Set2: int.parse(_player2Set2Controller.text),
-        player1Set3: _player1Set3Controller.text.isNotEmpty 
-            ? int.parse(_player1Set3Controller.text) 
+        player1Set3: _player1Set3Controller.text.isNotEmpty
+            ? int.parse(_player1Set3Controller.text)
             : null,
-        player2Set3: _player2Set3Controller.text.isNotEmpty 
-            ? int.parse(_player2Set3Controller.text) 
+        player2Set3: _player2Set3Controller.text.isNotEmpty
+            ? int.parse(_player2Set3Controller.text)
             : null,
-        reporterId: _authService.currentUser!.id, // Use current user as reporter
+        reporterId:
+            _authService.currentUser!.id, // Use current user as reporter
       );
 
       // Mark challenge as completed
@@ -172,14 +178,18 @@ class _ReportScoreScreenState extends State<ReportScoreScreen> {
                     Text(
                       'Match',
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            color: Theme.of(context).colorScheme.onPrimaryContainer,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
                           ),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       '${widget.player1Name} vs ${widget.player2Name}',
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            color: Theme.of(context).colorScheme.onPrimaryContainer,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
                           ),
                       textAlign: TextAlign.center,
                     ),
@@ -193,12 +203,15 @@ class _ReportScoreScreenState extends State<ReportScoreScreen> {
               style: Theme.of(context).textTheme.titleLarge,
             ),
             const SizedBox(height: 16),
-            _buildSetScoreRow('Set 1', _player1Set1Controller, _player2Set1Controller),
+            _buildSetScoreRow(
+                'Set 1', _player1Set1Controller, _player2Set1Controller),
             const SizedBox(height: 12),
-            _buildSetScoreRow('Set 2', _player1Set2Controller, _player2Set2Controller),
+            _buildSetScoreRow(
+                'Set 2', _player1Set2Controller, _player2Set2Controller),
             if (_requireSet3) ...[
               const SizedBox(height: 12),
-              _buildSetScoreRow('Set 3', _player1Set3Controller, _player2Set3Controller),
+              _buildSetScoreRow(
+                  'Set 3', _player1Set3Controller, _player2Set3Controller),
             ],
             const SizedBox(height: 24),
             Card(
@@ -239,7 +252,10 @@ class _ReportScoreScreenState extends State<ReportScoreScreen> {
     );
   }
 
-  Widget _buildSetScoreRow(String setLabel, TextEditingController player1Controller, TextEditingController player2Controller) {
+  Widget _buildSetScoreRow(
+      String setLabel,
+      TextEditingController player1Controller,
+      TextEditingController player2Controller) {
     return Row(
       children: [
         SizedBox(
@@ -264,7 +280,8 @@ class _ReportScoreScreenState extends State<ReportScoreScreen> {
                 decoration: const InputDecoration(
                   hintText: '0',
                   border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 ),
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -298,7 +315,8 @@ class _ReportScoreScreenState extends State<ReportScoreScreen> {
                 decoration: const InputDecoration(
                   hintText: '0',
                   border: OutlineInputBorder(),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 ),
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
