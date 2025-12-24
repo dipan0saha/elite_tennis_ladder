@@ -85,6 +85,11 @@ class _LadderListScreenState extends State<LadderListScreen>
         title: const Text('Tennis Ladders'),
         bottom: TabBar(
           controller: _tabController,
+          // Use theme onPrimary for contrast so it adapts to app theme
+          labelColor: Theme.of(context).colorScheme.onPrimary,
+          unselectedLabelColor:
+              Theme.of(context).colorScheme.onPrimary.withOpacity(0.7),
+          indicatorColor: Theme.of(context).colorScheme.onPrimary,
           tabs: const [
             Tab(text: 'Public', icon: Icon(Icons.public)),
             Tab(text: 'My Ladders', icon: Icon(Icons.admin_panel_settings)),

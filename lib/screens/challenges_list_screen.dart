@@ -219,6 +219,11 @@ class _ChallengesListScreenState extends State<ChallengesListScreen>
         title: const Text('My Challenges'),
         bottom: TabBar(
           controller: _tabController,
+          // Use theme onPrimary for contrast so it adapts to app theme
+          labelColor: Theme.of(context).colorScheme.onPrimary,
+          unselectedLabelColor:
+              Theme.of(context).colorScheme.onPrimary.withOpacity(0.7),
+          indicatorColor: Theme.of(context).colorScheme.onPrimary,
           tabs: [
             Tab(
               text: 'Pending',
