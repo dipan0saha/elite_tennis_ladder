@@ -4,27 +4,27 @@ class LadderMember {
   final String id;
   final String ladderId;
   final String playerId;
-  final int rank;
+  final int? rank;
   final String status;
   final DateTime? lastMatchDate;
   final int? wins;
   final int? losses;
   final double? winRate;
-  final DateTime joinedAt;
-  final DateTime updatedAt;
+  final DateTime? joinedAt;
+  final DateTime? updatedAt;
 
   LadderMember({
     required this.id,
     required this.ladderId,
     required this.playerId,
-    required this.rank,
+    this.rank,
     this.status = 'active',
     this.lastMatchDate,
     this.wins = 0,
     this.losses = 0,
     this.winRate = 0.0,
-    required this.joinedAt,
-    required this.updatedAt,
+    this.joinedAt,
+    this.updatedAt,
   });
 
   /// Create LadderMember from Supabase JSON response
@@ -33,7 +33,7 @@ class LadderMember {
       id: json['id'] as String,
       ladderId: json['ladder_id'] as String,
       playerId: json['player_id'] as String,
-      rank: json['rank'] as int,
+      rank: json['rank'] as int?,
       status: json['status'] as String? ?? 'active',
       lastMatchDate: json['last_match_date'] != null
           ? DateTime.parse(json['last_match_date'] as String)
@@ -41,8 +41,12 @@ class LadderMember {
       wins: json['wins'] as int? ?? 0,
       losses: json['losses'] as int? ?? 0,
       winRate: (json['win_rate'] as num?)?.toDouble() ?? 0.0,
-      joinedAt: DateTime.parse(json['joined_at'] as String),
-      updatedAt: DateTime.parse(json['updated_at'] as String),
+      joinedAt: json['joined_at'] != null
+          ? DateTime.parse(json['joined_at'] as String)
+          : null,
+      updatedAt: json['updated_at'] != null
+          ? DateTime.parse(json['updated_at'] as String)
+          : null,
     );
   }
 
@@ -58,8 +62,8 @@ class LadderMember {
       'wins': wins,
       'losses': losses,
       'win_rate': winRate,
-      'joined_at': joinedAt.toIso8601String(),
-      'updated_at': updatedAt.toIso8601String(),
+      'joined_at': joinedAt?.toIso8601String(),
+      'updated_at': updatedAt?.toIso8601String(),
     };
   }
 

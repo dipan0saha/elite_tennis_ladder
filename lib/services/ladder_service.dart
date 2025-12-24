@@ -155,6 +155,36 @@ class LadderService {
       final members = await getLadderMembers(ladderId);
       final nextRank = members.length + 1;
 
+      // Check if a membership row already exists (any status)
+      final existing = await _supabase
+          .from('ladder_members')
+          .select()
+          .eq('ladder_id', ladderId)
+          .eq('player_id', playerId)
+          .maybeSingle();
+
+      if (existing != null) {
+        final status = existing['status'] as String?;
+        if (status == 'active') {
+          // Already active — return existing member record
+          return LadderMember.fromJson(existing);
+        }
+
+        // Reactivate or update existing membership instead of inserting
+        final updated = await _supabase
+            .from('ladder_members')
+            .update({
+              'status': 'active',
+              'rank': nextRank,
+              'updated_at': DateTime.now().toUtc().toIso8601String(),
+            })
+            .eq('id', existing['id'])
+            .select()
+            .single();
+
+        return LadderMember.fromJson(updated);
+      }
+
       final response = await _supabase
           .from('ladder_members')
           .insert({

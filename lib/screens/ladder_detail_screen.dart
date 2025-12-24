@@ -374,7 +374,7 @@ class _LadderDetailScreenState extends State<LadderDetailScreen> {
         leading: CircleAvatar(
           backgroundColor: _getRankColor(member.rank),
           child: Text(
-            '#${member.rank}',
+            '#${member.rank ?? '-'}',
             style: const TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -396,7 +396,8 @@ class _LadderDetailScreenState extends State<LadderDetailScreen> {
     );
   }
 
-  Color _getRankColor(int rank) {
+  Color _getRankColor(int? rank) {
+    if (rank == null) return Theme.of(context).colorScheme.primary;
     if (rank == 1) return Colors.amber;
     if (rank == 2) return Colors.grey.shade400;
     if (rank == 3) return Colors.brown.shade300;

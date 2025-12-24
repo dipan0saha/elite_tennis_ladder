@@ -42,9 +42,11 @@ class _ChallengeCreateScreenState extends State<ChallengeCreateScreen> {
     // Can challenge players ranked above you within challenge range
     return widget.members.where((member) {
       if (member.playerId == userId) return false;
+      // Must have a valid rank to be challengeable
+      final r = member.rank;
+      if (r == null) return false;
       // Can challenge players above you within the ladder's challenge range
-      return member.rank < widget.myRank &&
-          (widget.myRank - member.rank) <= widget.challengeRange;
+      return r < widget.myRank && (widget.myRank - r) <= widget.challengeRange;
     }).toList();
   }
 
@@ -198,7 +200,7 @@ class _ChallengeCreateScreenState extends State<ChallengeCreateScreen> {
                           backgroundColor: _getRankColor(member.rank),
                           radius: 16,
                           child: Text(
-                            '#${member.rank}',
+                            '#${member.rank ?? '-'}',
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 12,
@@ -265,7 +267,8 @@ class _ChallengeCreateScreenState extends State<ChallengeCreateScreen> {
     );
   }
 
-  Color _getRankColor(int rank) {
+  Color _getRankColor(int? rank) {
+    if (rank == null) return Theme.of(context).colorScheme.primary;
     if (rank == 1) return Colors.amber;
     if (rank == 2) return Colors.grey.shade400;
     if (rank == 3) return Colors.brown.shade300;
