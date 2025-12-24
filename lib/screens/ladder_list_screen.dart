@@ -88,7 +88,7 @@ class _LadderListScreenState extends State<LadderListScreen>
           // Use theme onPrimary for contrast so it adapts to app theme
           labelColor: Theme.of(context).colorScheme.onPrimary,
           unselectedLabelColor:
-              Theme.of(context).colorScheme.onPrimary.withOpacity(0.7),
+              Theme.of(context).colorScheme.onPrimary.withValues(alpha: 0.7),
           indicatorColor: Theme.of(context).colorScheme.onPrimary,
           tabs: const [
             Tab(text: 'Public', icon: Icon(Icons.public)),
